@@ -35,6 +35,10 @@ button{
     height: 25px;
     border-radius: 7px;
 }
+select{
+	height: 25px;
+    border-radius: 7px;
+}
 .register{
     color: dodgerblue;
     font-size: 30px;
