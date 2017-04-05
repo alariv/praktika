@@ -1,0 +1,55 @@
+<style>
+body{
+    background-color: white;
+    height: 100%;
+}
+.footer{
+    bottom: 0;
+    left: 45%;
+    margin: auto;
+    color: white;
+}
+.footerBg{
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #B71234;
+}
+.header{
+    text-align: center;
+    top: 0;
+    margin: 0 auto;
+    color: white;
+}
+.headerBg{
+    top: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #B71234;
+}
+input{
+    height: 25px;
+    border-radius: 7px;
+}
+button{
+    height: 25px;
+    border-radius: 7px;
+}
+.register{
+    color: dodgerblue;
+    font-size: 30px;
+
+}
+
+.register:hover{
+    color: #B71234;
+}
+
+
+</style>
+
+  <script>
+  function goBack() {
+    window.history.back();
+}
+</script>
