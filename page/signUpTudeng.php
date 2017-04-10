@@ -157,8 +157,8 @@ if( isset($_POST["eesnimi"]) &&
     </h1>
 
     <form  method="POST">
-        <button type="radio"  value="baka" name="bm" placeholder="BAKA">Bakalaureus</button>
-        <button type="radio"  value="magi" name="bm" placeholder="MAGI">Magister</button><br><br>
+        <button value="baka" name="bm" placeholder="BAKA">BAKALAUREUS</button>
+        <button value="magi" name="bm" placeholder="MAGI">MAGISTER</button><br><br>
     </form>
     <form  method="POST">
         <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
@@ -186,7 +186,7 @@ if( isset($_POST["eesnimi"]) &&
         </select><br><br>
         <input type="text" placeholder="Mitmes kursus" value="<?=$kursus;?>" name="kursus"><br><br>
 
-        <input style="width: 300px;height: 50px" type="submit"><br><br>
+        <button style="width: 300px;height: 50px" type="submit">SALVESTA</button><br><br>
 
     </form>
 

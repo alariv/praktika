@@ -27,33 +27,43 @@ body{
     height: 30px;
     background-color: #B71234;
 }
-input{
-    height: 25px;
-    border-radius: 7px;
+select{
+	height: 35px;
+    width:auto;
 }
 button{
-    height: 25px;
-    border-radius: 7px;
+    font-family: "Times New Roman";
+    font-size: 25px;
+    font-style: italic;
+    border: none;
+    background: #B71234;
+    color: white;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
-select{
-	height: 25px;
-    border-radius: 7px;
-}
-.register{
-    color: dodgerblue;
+.toRegister{
+    background-color: #B71234;
+    padding: 15px;
+    font-style: italic;
+    color: white;
+    text-decoration: none;
     font-size: 30px;
 
 }
 
-.register:hover{
-    color: #B71234;
+.toRegister:hover{
+    color: white;
+    text-decoration: none;
 }
-
+*{
+    font-family: "Times New Roman";
+}
 
 </style>
 
-  <script>
-  function goBack() {
-    window.history.back();
-}
+<script>
+    function goBack() {
+        window.history.back();
+    }
 </script>

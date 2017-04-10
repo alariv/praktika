@@ -17,15 +17,28 @@ require("../functions.php");
 
 <body>
 <h1>
-    Siin on tutvustav tekst
+    Tutvustav leht
 </h1>
 
+<br>
 
-<div>
-    <a href="signUpTudeng.php" class="register"> registreeru tudengiks</a><br><br>
-    <a href="signUpVari.php" class="register"> registreeru varjuks</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <a href="signUpTudeng.php" class="toRegister">REGISTREERU TUDENGIKS</a><br><br>
+            <a href="signUpVari.php" class="toRegister">REGISTREERU VARJUKS</a>
+        </div>
+        <div class="col">
+                    <p style="font-size: large;border-left: solid 10px;border-left-color: #B71234;padding-left: 20px">
+                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
+                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
+                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
+                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
+                    </p>
+        </div>
+    </div>
 </div>
-
+        <br>
 </body>
 
 <?php require("../footer.php");?>

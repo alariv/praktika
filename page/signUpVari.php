@@ -159,16 +159,16 @@ if( isset($_POST["eesnimi"]) &&
 </h1>
 
 <form  method="POST">
-    <button type="radio"  value="baka" name="bm" placeholder="BAKA">Bakalaureus</button>
-    <button type="radio"  value="magi" name="bm" placeholder="MAGI">Magister</button><br><br>
+    <button value="baka" name="bm" placeholder="BAKA">BAKALAUREUS</button>
+    <button value="magi" name="bm" placeholder="MAGI">MAGISTER</button><br><br>
 </form>
 <form  method="POST">
-    <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
-    <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
-    <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
-    <input type="text" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
-    <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool"><br><br>
-    <input type="text" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
+    <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi" maxlength="50"><br><br>
+    <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi" maxlength="50"><br><br>
+    <input type="text" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
+    <input type="tel" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr" maxlength="15"><br><br>
+    <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool" maxlength="50"><br><br>
+    <input type="tel" placeholder="Vanus" value="<?=$vanus;?>" name="vanus" min="14" max="99" maxlength="2"><?php echo $vanusError; ?><br><br>
 
 
     1.eelistus: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
@@ -203,7 +203,7 @@ if( isset($_POST["eesnimi"]) &&
 
         ?>
     </select><br><br>
-    <input style="width: 300px;height: 50px" type="submit"><br><br>
+    <button style="width: 300px;height: 50px;font-size: 30px" type="submit">SALVESTA</button><br><br>
 
 </form>
 
