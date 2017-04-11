@@ -9,7 +9,7 @@ require("../functions.php");
 <?php require("../header.php");?>
 <?php require("../style/style.css");?>
 
-
+<html>
 <head>
 
 
@@ -45,4 +45,5 @@ require("../functions.php");
         <br>
 </body>
 
+</html>
 <?php require("../footer.php");?>

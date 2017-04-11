@@ -148,7 +148,7 @@ if( isset($_POST["eesnimi"]) &&
 <?php require("../header.php");?>
 <?php require("../style/style.css");?>
 
-
+<html>
 <head>
 
 
@@ -214,3 +214,4 @@ if( isset($_POST["eesnimi"]) &&
 
 
 <?php require("../footer.php");?>
+</html>

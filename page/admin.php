@@ -10,7 +10,7 @@ if (isset ($_POST ["kasutaja"])) {
     // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["kasutaja"])) {
         //oli t�esti t�hi
-        $kasutajaError = "Kasutaja puudub!";
+        $kasutajaError = "Sisesta kasutajanimi!";
     } else {
         $kasutaja = $_POST ["kasutaja"];
     }
@@ -19,7 +19,7 @@ if (isset ($_POST ["parool"])) {
     // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["parool"])) {
         //oli t�esti t�hi
-        $parooliError = "parool puudub!";
+        $parooliError = "Sisesta parool!";
     } else {
         $parool = $_POST ["parool"];
     }
@@ -46,11 +46,12 @@ if( isset($_POST["kasutaja"]) &&
     <div class="row justify-content-md-center">
         <div class="col-12 col-md-auto">
             <div class="loginWall">
+                <p class="pageHeading">Logi sisse</p>
                 <form  method="POST">
-                    <?php echo $kasutajaError; ?>
+                    <?php echo $kasutajaError; ?><br>
                     <?php echo $parooliError; ?>
-                    <input  type="text"  value="<?=$kasutaja;?>" name="kasutaja" placeholder="kasutaja"><br><br>
-                    <input  type="text"  value="<?=$parool;?>" name="parool" placeholder="parool"><br><br>
+                    <input class="loginForm" type="text"  value="<?=$kasutaja;?>" name="kasutaja" placeholder="kasutaja"><br><br>
+                    <input class="loginForm" type="password"  value="<?=$parool;?>" name="parool" placeholder="parool"><br><br>
                     <button style="width: 300px;height: 50px;font-size: 30px" type="submit">LOGI SISSE</button><br><br>
                 </form>
             </div>
