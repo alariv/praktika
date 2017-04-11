@@ -84,6 +84,12 @@ td{
     font-size: 15px;
     max-width: 5%;
 }
+input[type="password"] {
+    color: #B71234;
+}
+input[type="text"] {
+    color: #B71234;
+}
 
 </style>
 
