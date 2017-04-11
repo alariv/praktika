@@ -59,6 +59,14 @@ button{
 *{
     font-family: "Times New Roman";
 }
+.fadeable {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: all 2s;
+}
 
 </style>
 
