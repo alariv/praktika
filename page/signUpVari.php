@@ -156,9 +156,9 @@ if( isset($_POST["eesnimi"]) &&
 
 <body>
 <br>
-<h1>
-    registreerimine VARJUKS
-</h1>
+<p class="pageHeading">
+    Registreerimine VARJUKS
+</p>
 
 <form  method="POST">
     <button value="baka" name="bm" placeholder="BAKA">BAKALAUREUS</button>

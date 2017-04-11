@@ -10,6 +10,7 @@ body{
     color: white;
 }
 .footerBg{
+    position: absolute;
     bottom: 0;
     width: 100%;
     height: 30px;
@@ -26,6 +27,9 @@ body{
     width: 100%;
     height: 30px;
     background-color: #B71234;
+}
+.pageHeading{
+    font-size: 35px;
 }
 select{
 	height: 35px;
@@ -58,14 +62,19 @@ button{
 }
 *{
     font-family: "Times New Roman";
+    font-style: italic;
 }
 .fadeable {
-    opacity: 0;
+    visibility: hidden;
 }
 
 .fade-in {
-    opacity: 1;
+    visibility: visible;
     transition: all 2s;
+}
+.loginWall{
+    margin-top: 40%;
+
 }
 
 </style>

@@ -18,6 +18,7 @@ $vanus = "";
 $vanusError = "";
 $eriala = "";
 $eriala2 = "";
+$visibility = "fadeable";
 
 
 
@@ -111,11 +112,13 @@ if (isset ($_POST ["eriala2"])) {
 if ($bm == "baka") {
     $dropDownEriala=$Vari->getBaka();
     $dropDownEriala2=$Vari->getBaka2();
+    $visibility = "fadeable fade-in";
 
 }
 if ($bm == "magi") {
     $dropDownEriala=$Vari->getMagi();
     $dropDownEriala2=$Vari->getMagi2();
+    $visibility = "fadeable fade-in";
 
 }
 
@@ -152,15 +155,15 @@ if( isset($_POST["eesnimi"]) &&
 
     <body>
     <br>
-    <h1>
-        registreerimine TUDENGIKS
-    </h1>
+    <p class="pageHeading">
+        Registreerimine TUDENGIKS
+    </p>
 
     <form  method="POST">
         <button value="baka" name="bm" placeholder="BAKA">BAKALAUREUS</button>
         <button value="magi" name="bm" placeholder="MAGI">MAGISTER</button><br><br>
     </form>
-    <form  method="POST">
+    <form  method="POST" class="<?php echo $visibility ?>">
         <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
         <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
         <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>

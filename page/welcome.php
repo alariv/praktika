@@ -16,9 +16,13 @@ require("../functions.php");
 </head>
 
 <body>
-<h1>
+<br>
+<img style="margin-left: 15px " src="http://www.tlu.ee/img/logo01.png">
+<br><br>
+
+<p class="pageHeading">
     Tutvustav leht
-</h1>
+</p>
 
 <br>
 
