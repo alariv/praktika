@@ -12,9 +12,46 @@ if(isset($_GET["logout"])) {
     header("Location: admin.php");
     exit();
 }
+if (isset ($_POST ["pairVari"])) {
+    // oli olemas, ehk keegi vajutas nuppu
+    if (empty($_POST ["pairVari"])) {
+        //oli t�esti t�hi
+        $pairVariError = "";
+    } else {
+        $pairVari = $_POST ["pairVari"];
+        $_SESSION["pairVari"]= $_POST["pairVari"];
+    }
+}
+if (isset ($_POST ["pairTudeng"])) {
+    // oli olemas, ehk keegi vajutas nuppu
+    if (empty($_POST ["pairTudeng"])) {
+        //oli t�esti t�hi
+        $pairTudengError = "";
+    } else {
+        $pairTudeng = $_POST ["pairTudeng"];
+        $_SESSION["pairTudeng"]= $_POST["pairTudeng"];
+    }
+}
+
+
+if (isset ($_POST ["pair"])) {
+    if( isset($_SESSION["pairVari"]) &&
+        isset($_SESSION["pairTudeng"]) &&
+        !empty($_SESSION["pairVari"]) &&
+        !empty($_SESSION["pairTudeng"])
+    ){
+        $pairId = $Pair->getPairId();
+        var_dump($_SESSION["PairId"]);
+        $Pair->updatePairId();
+        $Pair->updateVari($_SESSION["PairId"], $_SESSION["pairVari"]);
+        $Pair->updateTudeng($_SESSION["PairId"], $_SESSION["pairTudeng"]);
+    }
+}
 
 $varjud = $Admin->getVarjud();
 $tudengid = $Admin->getTudengid();
+
+
 ?>
 <?php require ("../header.php")?>
 <?php require("../style/style.css");?>
@@ -49,15 +86,39 @@ $tudengid = $Admin->getTudengid();
 
 
             foreach($varjud as $V){
-                $html .= "<tr>";
-                $html .= "<td><center><input type='radio' name='pairVari'></input></center></td>";
-                $html .= "<td><center><a >$V->eesnimi</a></center></td>";
-                $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
-                $html .= "<td><center><a >$V->vanus</a></center></td>";
-                $html .= "<td><center><a >$V->bm</a></center></td>";
-                $html .= "<td><center><a >$V->eriala</a></center></td>";
-                $html .= "<td><center><a >$V->eriala2</a></center></td>";
-                $html .= "</tr>";
+                if( isset($_SESSION["pairVari"])){
+                    if($V->id == $_SESSION["pairVari"]) {
+                        $html .= "<tr>";
+                        $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button style='font-size: 10' value='$V->id' name='pairVari'>VALI</button></form></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
+                        $html .= "</tr>";
+                    } else{
+                        $html .= "<tr>";
+                        $html .= "<td><center><form  method='POST' style='margin: 0'><button style='font-size: 10' value='$V->id' name='pairVari'>VALI</button></form></center></td>";
+                        $html .= "<td><center><a >$V->eesnimi</a></center></td>";
+                        $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
+                        $html .= "<td><center><a >$V->vanus</a></center></td>";
+                        $html .= "<td><center><a >$V->bm</a></center></td>";
+                        $html .= "<td><center><a >$V->eriala</a></center></td>";
+                        $html .= "<td><center><a >$V->eriala2</a></center></td>";
+                        $html .= "</tr>";
+                    }
+                } else{
+                    $html .= "<tr>";
+                    $html .= "<td><center><form  method='POST' style='margin: 0'><button style='font-size: 10' value='$V->id' name='pairVari'>VALI</button></form></center></td>";
+                    $html .= "<td><center><a >$V->eesnimi</a></center></td>";
+                    $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
+                    $html .= "<td><center><a >$V->vanus</a></center></td>";
+                    $html .= "<td><center><a >$V->bm</a></center></td>";
+                    $html .= "<td><center><a >$V->eriala</a></center></td>";
+                    $html .= "<td><center><a >$V->eriala2</a></center></td>";
+                    $html .= "</tr>";
+                }
 
             }
             $html .= "</Table>";
@@ -82,16 +143,37 @@ $tudengid = $Admin->getTudengid();
 
 
 
-            foreach($tudengid as $T){
-                $html .= "<tr>";
-                $html .= "<td><center><input type='radio' name='pairTudeng'></input></center></td>";
-                $html .= "<td><center><a >$T->eesnimi</a></center></td>";
-                $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
-                $html .= "<td><center><a >$T->vanus</a></center></td>";
-                $html .= "<td><center><a >$T->bm</a></center></td>";
-                $html .= "<td><center><a >$T->eriala</a></center></td>";
-                $html .= "</tr>";
-
+            foreach($tudengid as $T) {
+                if (isset($_SESSION["pairTudeng"])) {
+                    if ($T->id == $_SESSION["pairTudeng"]) {
+                        $html .= "<tr>";
+                        $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button style='font-size: 10' value='$T->id' name='pairTudeng'>VALI</button></form></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
+                        $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
+                        $html .= "</tr>";
+                    } else {
+                        $html .= "<tr>";
+                        $html .= "<td><center><form  method='POST' style='margin: 0'><button style='font-size: 10' value='$T->id' name='pairTudeng'>VALI</button></form></center></td>";
+                        $html .= "<td><center><a >$T->eesnimi</a></center></td>";
+                        $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
+                        $html .= "<td><center><a >$T->vanus</a></center></td>";
+                        $html .= "<td><center><a >$T->bm</a></center></td>";
+                        $html .= "<td><center><a >$T->eriala</a></center></td>";
+                        $html .= "</tr>";
+                    }
+                } else {
+                    $html .= "<tr>";
+                    $html .= "<td><center><form  method='POST' style='margin: 0'><button style='font-size: 10' value='$T->id' name='pairTudeng'>VALI</button></form></center></td>";
+                    $html .= "<td><center><a >$T->eesnimi</a></center></td>";
+                    $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
+                    $html .= "<td><center><a >$T->vanus</a></center></td>";
+                    $html .= "<td><center><a >$T->bm</a></center></td>";
+                    $html .= "<td><center><a >$T->eriala</a></center></td>";
+                    $html .= "</tr>";
+                }
             }
             $html .= "</Table>";
             echo $html;
@@ -99,8 +181,8 @@ $tudengid = $Admin->getTudengid();
             ?>
         </div>
         <div class="col">
-            <button style="float: right">KOKKU LIIDETUD TUDENGID</button><br><br><br>
-            <button style="position: fixed;right: 0;bottom: 35px">LIIDA KOKKU</button>
+            <a href="adminLinked.php" class="toRegister" style="float: right">KOKKU LIIDETUD TUDENGID</a><br><br><br>
+            <form method="post"><button type="submit" style="position: fixed;right: 0;bottom: 35px" name="pair">LIIDA KOKKU</button></form>
         </div>
     </div>
 </div>

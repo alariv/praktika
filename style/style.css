@@ -80,15 +80,13 @@ button{
 .loginForm{
     width: 100%;
 }
-td{
+td,th,tr{
     font-size: 15px;
-    max-width: 5%;
-}
-input[type="password"] {
-    color: #B71234;
-}
-input[type="text"] {
-    color: #B71234;
+    max-width: 100px;
+    word-wrap:break-word;
+    max-height: 50px;
+    overflow-y: auto;
+    border:1px solid gray;
 }
 
 </style>
