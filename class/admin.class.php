@@ -72,7 +72,7 @@ class Admin
         $stmt = $this->connection->prepare("
 			SELECT id, eesnimi, perekonnanimi, email, telefoninr, kool, vanus, bm, eriala, eriala2, pairId
             FROM tudengivarjud
-            WHERE pairId=0
+            WHERE pairId=0 AND deleted is NULL
             ORDER BY eriala
 		");
         echo $this->connection->error;
@@ -115,7 +115,7 @@ class Admin
         $stmt = $this->connection->prepare("
 			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
             FROM tudengid
-            WHERE mituVarju!=0
+            WHERE mituVarju!=0 and deleted is NULL 
             ORDER BY eriala
 		");
         echo $this->connection->error;
@@ -150,6 +150,116 @@ class Admin
         $stmt->close();
 
         return $result;
+    }
+
+    function getSingleTudeng($id){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
+            FROM tudengid
+            WHERE id=?
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("i", $id);
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
+        $stmt->execute();
+
+
+        $tudeng = new StdClass();
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            
+            $tudeng->id = $id;
+            $tudeng->eesnimi = $eesnimi;
+            $tudeng->perekonnanimi = $perenimi;
+            $tudeng->email = $email;
+            $tudeng->telnr = $telnr;
+            $tudeng->vanus = $vanus;
+            $tudeng->eriala = $eriala;
+            $tudeng->kursus = $kursus;
+            $tudeng->bm = $bm;
+            $tudeng->pairId = $pairId;
+
+        }
+
+        $stmt->close();
+
+        return $tudeng;
+    }
+    function getSingleVari($id){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, eriala2, bm, pairId
+            FROM tudengivarjud
+            WHERE id=?
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("i", $id);
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $eriala2, $bm, $pairId);
+        $stmt->execute();
+
+
+        $vari = new StdClass();
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+
+            $vari->id = $id;
+            $vari->eesnimi = $eesnimi;
+            $vari->perekonnanimi = $perenimi;
+            $vari->email = $email;
+            $vari->telnr = $telnr;
+            $vari->vanus = $vanus;
+            $vari->eriala = $eriala;
+            $vari->eriala2 = $eriala2;
+            $vari->bm = $bm;
+            $vari->pairId = $pairId;
+
+        }
+
+        $stmt->close();
+
+        return $vari;
+    }
+
+    function deleteTudeng($id){
+
+    $stmt = $this->connection->prepare("UPDATE tudengid SET deleted=NOW() WHERE id=?");
+
+    $stmt->bind_param("i", $id);
+
+    // kas õnnestus salvestada
+    if ($stmt->execute()) {
+        // õnnestus
+//        echo "Tudengi kustutamine õnnestus!";
+    }
+
+    $stmt->close();
+
+}
+    function deleteVari($id){
+
+        $stmt = $this->connection->prepare("UPDATE tudengivarjud SET deleted=NOW() WHERE id=?");
+
+        $stmt->bind_param("i", $id);
+
+        // kas õnnestus salvestada
+        if ($stmt->execute()) {
+            // õnnestus
+//            echo "Varju kustutamine õnnestus!";
+        }
+
+        $stmt->close();
+
     }
 
 

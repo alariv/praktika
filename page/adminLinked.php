@@ -15,7 +15,9 @@ if(isset($_GET["logout"])) {
 
 
 $varjuPaarid=$Pair->getVarjud();
-$tudengiPaarid=array_merge($Pair->getTudengid(),$Pair->getTudengid2())
+$tudengiPaarid= array_merge($Pair->getTudengid(),$Pair->getTudengid2());
+sort($tudengiPaarid);
+
 ?>
 <?php require("../header.php");?>
 <?php require("../style/style.css");?>
@@ -28,12 +30,12 @@ $tudengiPaarid=array_merge($Pair->getTudengid(),$Pair->getTudengid2())
 <text class="pageHeading">OLED ADMINIGA SISSE LOGITUD.... </text>
 <form  method="post">
     <div  class="btn-group" style="position: fixed;right: 0;">
-        <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group" style="visibility: hidden">
+        <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group" style="opacity: 0">
             <button type="submit" style="width: 250px" name="unPair">SEO LAHTI</button>
             <button type="submit" style="width: 250px"  name="delTudeng">KUSTUTA TUDENG</button>
             <button type="submit" style="width: 250px" name="delVari">KUSTUTA VARI</button>
         </div>
-        <button style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
+        <button id="btnGroupMain" style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
     </div>
 </form>
 <br><br>

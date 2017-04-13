@@ -88,6 +88,9 @@ td,th,tr{
     overflow-y: auto;
     border:1px solid gray;
 }
+table{
+    border: 1px solid gray;
+}
 .delBtn{
     font-size: 10;
     background-color: white;
@@ -109,6 +112,47 @@ td,th,tr{
     background-color: white;
     border: 1px solid #B71234;
     color: #B71234;
+}
+.mymodal{
+    background-color: rgba(0,0,0,0.85);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+
+}
+.confirm{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 350px;
+    height: 450px;
+    background-color: white;
+    box-shadow: 0px 0px 80px 15px black;
+}
+.confirmHead{
+    background-color: #B71234;
+    height: 36px;
+    padding-left: 10px;
+}
+.confirmData{
+    border-bottom: 1px solid gray;
+    font-weight: bold;
+    text-transform: uppercase;
+    float: right;
+}
+.btn-group-vertical{
+    transition: all 0.5s;
+}
+.btn-group{
+    transition: all 0.5s;
+}
+#btnGroupMain{
+    transition: all 0.5s;
 }
 
 </style>

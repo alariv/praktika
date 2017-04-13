@@ -1,8 +1,14 @@
 <?php
 require("../functions.php");
+$_SESSION["change"]=0;
+if($_SESSION["change"]==0){
+    $cancel="hidden";
+    $modify="visible";
+    $_SESSION["change"]=1;
+}
 
-$cancel="hidden";
-$modify="visible";
+
+$modalVisibility="hidden";
 
 if(!isset ($_SESSION["userId"])) {
 
@@ -17,21 +23,31 @@ if(isset($_GET["logout"])) {
     exit();
 }
 if (isset ($_POST ["pairVari"])) {
-    if($_SESSION["pairVari"]>0 && $_SESSION["pairVari"]==$_POST["pairVari"]) {
-        $_SESSION["pairVari"]="";
-    }else{
+    if (isset ($_SESSION["pairVari"])) {
+        if ($_SESSION["pairVari"] > 0 && $_SESSION["pairVari"] == $_POST["pairVari"]) {
+            $_SESSION["pairVari"] = "";
+        } else {
+            $pairVari = $_POST ["pairVari"];
+            $_SESSION["pairVari"] = $_POST["pairVari"];
+        }
+    } else {
         $pairVari = $_POST ["pairVari"];
         $_SESSION["pairVari"] = $_POST["pairVari"];
     }
 }
 if (isset ($_POST ["pairTudeng"])) {
-    if ($_SESSION["pairTudeng"] > 0 && $_SESSION["pairTudeng"]==$_POST["pairTudeng"]) {
-        $_SESSION["pairTudeng"]="";
-    }
-    else{
+    if (isset ($_SESSION["pairTudeng"])) {
+        if ($_SESSION["pairTudeng"] > 0 && $_SESSION["pairTudeng"] == $_POST["pairTudeng"]) {
+            $_SESSION["pairTudeng"] = "";
+        }else{
+            $pairTudeng = $_POST ["pairTudeng"];
+            $_SESSION["pairTudeng"] = $_POST["pairTudeng"];
+        }
+    }else{
         $pairTudeng = $_POST ["pairTudeng"];
         $_SESSION["pairTudeng"] = $_POST["pairTudeng"];
     }
+
 }
 
 
@@ -80,13 +96,51 @@ if (isset ($_POST ["delVari"])) {
     }
 }
 if (isset ($_POST ["cancel"])) {
-    $cancel = $_POST ["cancel"];
-    $_SESSION["delTudeng"]= 0;
-    $_SESSION["delVari"]= 0;
-    $cancel="hidden";
-    $modify="visible";
+    if (empty($_POST ["delVari"])) {
+        $cancel = $_POST ["cancel"];
+        $_SESSION["delTudeng"] = 0;
+        $_SESSION["delVari"] = 0;
+        $cancel = "hidden";
+        $modify = "visible";
+    }
+}
+if (isset ($_POST ["deleteTudeng"])) {
+    $_SESSION["deleteTudeng"]=$_POST["deleteTudeng"];
+    $modalVisibility="visible;z-index: 1001;";
+    $DT = $Admin->getSingleTudeng($_POST["deleteTudeng"]);
+    $cancel="visible";
+    $modify="hidden";
 
 }
+if (isset ($_POST ["deleteVari"])) {
+    $_SESSION["deleteVari"]=$_POST["deleteVari"];
+    $modalVisibility="visible;z-index: 1001;";
+    $DV = $Admin->getSingleVari($_POST["deleteVari"]);
+    $cancel="visible";
+    $modify="hidden";
+
+
+}
+if (isset ($_POST ["cancelDelete"])) {
+    $modalVisibility="hidden;z-index: -100;";
+    $cancel="visible";
+    $modify="hidden";
+}
+if (isset ($_POST ["confirmDelete"])) {
+    $modalVisibility="hidden;z-index: -100;";
+    if( $_SESSION["deleteTV"]=="T") {
+        $Admin->deleteTudeng($_SESSION["deleteTudeng"]);
+    }elseif( $_SESSION["deleteTV"]=="V"){
+        $Admin->deleteVari($_SESSION["deleteVari"]);
+    }
+    $cancel = "hidden";
+    $modify = "visible";
+    $_SESSION["delVari"] = 0;
+    $_SESSION["delTudeng"] = 0;
+
+}
+
+
 $varjud = $Admin->getVarjud();
 $tudengid = $Admin->getTudengid();
 
@@ -103,9 +157,51 @@ $tudengid = $Admin->getTudengid();
     <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="adminData.php"> Tagasi</a><a style="float: right;color: black" href="?logout=1">logi valja</a></p>
 </head>
 <body>
+<div class="mymodal" style="visibility: <?php echo $modalVisibility ?>;">
+    <div align="left" class="confirm">
+        <div class="confirmHead">
+            <text style="font-size: 22px;color: white;"><span style="font-size: 30px">T</span>EADE!</text>
+        </div>
 
+        <?php if (isset ($_POST ["deleteTudeng"])){ ?>
+            <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid kustutada tudengi:</h5>
+            <hr>
+        <div style="margin-left: 10px">
+            <text>Eesnimi: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->eesnimi; ?></text><br>
+            <text>Perenimi: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->perekonnanimi ?></text><br>
+            <text>Email: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->email ?></text><br>
+            <text>Telefoni nr: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->telnr ?></text><br>
+            <text>Vanus: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->vanus ?></text><br>
+            <text>Aste: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->bm ?></text><br>
+            <text>Eriala: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->eriala ?></text><br>
+            <text>Kursus: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->kursus ?></text><br>
+        </div>
+        <?php $_SESSION["deleteTV"]="T";
+        }elseif(isset ($_POST ["deleteVari"])){ ?>
+            <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid kustutada tudengivarju:</h5>
+            <hr>
+            <di>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eesnimi: </text><text class="confirmData"> <?php echo $DV->eesnimi; ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Perenimi: </text><text class="confirmData"> <?php echo $DV->perekonnanimi ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Email: </text><text class="confirmData"> <?php echo $DV->email ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Telefoni nr: </text><text class="confirmData"> <?php echo $DV->telnr ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Vanus: </text><text class="confirmData"> <?php echo $DV->vanus ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Aste: </text><text class="confirmData"> <?php echo $DV->bm ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala: </text><text class="confirmData"> <?php echo $DV->eriala ?></text></div>
+                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala2: </text><text class="confirmData"> <?php echo $DV->eriala2 ?></text></div>
+            </di>
+        <?php $_SESSION["deleteTV"]="V";
+        }?>
+        <div style="margin-top: 40px">
+            <form method="post">
+            <button style="position: absolute;bottom: 0;left:0" name="cancelDelete">TÜHISTA</button>
+            <button style="position: absolute;bottom: 0;right:0" name="confirmDelete">KINNITA</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<p class="pageHeading"> OLED ADMINIGA SISSE LOGITUD.... </p>
+<p class="pageHeading"> ADMIN </p>
 
 <div class="container-fluid">
     <div class="row">
@@ -133,10 +229,9 @@ $tudengid = $Admin->getTudengid();
                         if (isset($_SESSION["delVari"])) {
                             $html .= "<tr>";
                             if ($_SESSION["delVari"] == 1) {
-                                $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
                             } else {
                                 $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
-
                             }
                             $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
                             $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
@@ -161,7 +256,7 @@ $tudengid = $Admin->getTudengid();
                         if (isset($_SESSION["delVari"])) {
                             $html .= "<tr>";
                             if ($_SESSION["delVari"] == 1) {
-                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
                             } else {
                                 $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
                             }
@@ -188,7 +283,7 @@ $tudengid = $Admin->getTudengid();
                     $html .= "<tr>";
                     if (isset($_SESSION["delVari"])) {
                         if ($_SESSION["delVari"] == 1) {
-                            $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                            $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
                         } else {
                             $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
                         }
@@ -240,7 +335,7 @@ $tudengid = $Admin->getTudengid();
                         if (isset($_SESSION["delTudeng"])) {
                             $html .= "<tr>";
                             if ($_SESSION["delTudeng"] == 1) {
-                                $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
                             } else {
                                 $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
                             }
@@ -264,7 +359,7 @@ $tudengid = $Admin->getTudengid();
                         if (isset($_SESSION["delTudeng"])) {
                             $html .= "<tr>";
                             if ($_SESSION["delTudeng"] == 1) {
-                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
                             } else {
                                 $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
                             }
@@ -289,7 +384,7 @@ $tudengid = $Admin->getTudengid();
                     $html .= "<tr>";
                     if (isset($_SESSION["delTudeng"])) {
                         if($_SESSION["delTudeng"]==1) {
-                            $html .= "<td><center><form method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                            $html .= "<td><center><form method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
                         }else{
                             $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
                         }
@@ -317,20 +412,23 @@ $tudengid = $Admin->getTudengid();
         </div>
         <div class="col">
             <form method="post">
-                <button style="position: fixed;width: 250px;right: 0;bottom: 55%;visibility: <?php echo $cancel ?>" name="cancel" value="0">TÜHISTA</button>
+                <button class="delBtn" style="font-size: 25px;position: fixed;width: 250px;right: 0;bottom: 55%;visibility: <?php echo $cancel ?>" name="cancel" value="0" >TÜHISTA</button>
             </form>
             <form style="visibility: <?php echo $modify ?>" method="post">
                 <div  class="btn-group-vertical" style="position: fixed;right: 0;bottom: 45%">
-                    <button style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
-                    <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group-vertical" style="visibility: hidden">
-                        <button type="submit" style="width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
+                    <button id="btnGroupMain" style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
+                    <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group-vertical" style="opacity: 0;">
+                        <button type="submit" style="margin-bottom:1px;margin-top: 1px;width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
                         <button type="submit" style="width: 250px" value="1" name="delVari">KUSTUTA VARI</button>
                     </div>
                 </div>
             </form>
-            <a href="adminLinked.php" class="toRegister" style="position: fixed;right: 0;bottom: 15%">KOKKU LIIDETUD TUDENGID</a><br><br><br>
+
             <form method="post">
-                <button type="submit" style="position: fixed;right: 0;bottom: 1%" name="pair">LIIDA KOKKU</button>
+                <div style="position: fixed;right: 0;bottom: 1%">
+                    <button type="submit" style="width: 250px;float: right" name="pair">LIIDA KOKKU</button><br><br>
+                    <a href="adminLinked.php" class="toRegister" style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</a>
+                </div>
             </form>
         </div>
     </div>
