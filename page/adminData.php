@@ -41,15 +41,23 @@ if (isset ($_POST ["pair"])) {
         !empty($_SESSION["pairTudeng"])
     ){
         $pairId = $Pair->getPairId();
-        var_dump($_SESSION["PairId"]);
+        $Pair->checkTudengPairIdStatus($_SESSION["pairTudeng"]);
         $Pair->updatePairId();
+        if($_SESSION["PairId1Status"]==0){
+            $Pair->updateTudeng($_SESSION["PairId"], $_SESSION["pairTudeng"]);
+
+        }else{
+            $Pair->updateTudeng2($_SESSION["PairId"], $_SESSION["pairTudeng"]);
+
+        }
+
         $Pair->updateVari($_SESSION["PairId"], $_SESSION["pairVari"]);
-        $Pair->updateTudeng($_SESSION["PairId"], $_SESSION["pairTudeng"]);
     }
 }
 
 $varjud = $Admin->getVarjud();
 $tudengid = $Admin->getTudengid();
+
 
 
 ?>
@@ -58,12 +66,12 @@ $tudengid = $Admin->getTudengid();
 
 
 <head>
-
+    <meta charset="utf-8">
 </head>
 <body>
 
 
-<p class="pageHeading">OLED ADMINIGA SISSE LOGITUD.... <a href="?logout=1">logi valja</a></p>
+<p class="pageHeading"> OLED ADMINIGA SISSE LOGITUD.... <a href="?logout=1">logi valja</a></p>
 
 <div class="container-fluid">
     <div class="row">

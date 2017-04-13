@@ -16,13 +16,13 @@ class Tudeng
 
     }
 
-    function saveTudeng($eesnimi, $perenimi, $email, $telnr, $kursus, $vanus, $bm, $eriala){
+    function saveTudeng($eesnimi, $perenimi, $email, $telnr, $kursus, $vanus, $bm, $eriala, $mituVarju){
 
 
         //yhendus olemas
         //kask
-        $stmt = $this->connection->prepare("INSERT INTO tudengid (eesnimi, perekonnanimi, email, telefoninr, kursus, vanus, bm, eriala) 
-                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->connection->prepare("INSERT INTO tudengid (eesnimi, perekonnanimi, email, telefoninr, kursus, vanus, bm, eriala, mituVarju) 
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         echo $this->connection->error;
         //asendan kysimargid vaartustega
@@ -30,7 +30,7 @@ class Tudeng
         //s tahistab stringi
         //i integer
         //d double/float
-        $stmt->bind_param("sssisiss", $eesnimi, $perenimi, $email, $telnr, $kursus, $vanus, $bm, $eriala);
+        $stmt->bind_param("sssisissi", $eesnimi, $perenimi, $email, $telnr, $kursus, $vanus, $bm, $eriala, $mituVarju);
 
         if ($stmt->execute()) {
             echo "salvestamine onnestus ";

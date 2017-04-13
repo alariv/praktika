@@ -115,7 +115,7 @@ class Admin
         $stmt = $this->connection->prepare("
 			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
             FROM tudengid
-            WHERE pairId=0
+            WHERE mituVarju!=0
             ORDER BY eriala
 		");
         echo $this->connection->error;

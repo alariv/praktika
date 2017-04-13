@@ -15,8 +15,7 @@ if(isset($_GET["logout"])) {
 
 
 $varjuPaarid=$Pair->getVarjud();
-$tudengiPaarid=$Pair->getTudengid();
-
+$tudengiPaarid=array_merge($Pair->getTudengid(),$Pair->getTudengid2())
 ?>
 <?php require("../header.php");?>
 <?php require("../style/style.css");?>
@@ -25,6 +24,7 @@ $tudengiPaarid=$Pair->getTudengid();
 
 </head>
 <body>
+<p class="pageHeading"><a onclick="goBack()"><-tagasi-</a>OLED ADMINIGA SISSE LOGITUD.... <a href="?logout=1">logi valja</a></p>
 <p  class="pageHeading">Kokku liidetud:</p>
 <div class="container-fluid">
     <div class="row">
@@ -47,18 +47,6 @@ $tudengiPaarid=$Pair->getTudengid();
 
 
             foreach($varjuPaarid as $VP){
-                if($VP->pairId%2==0) {
-                    $html .= "<tr>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->eesnimi</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->perekonnanimi</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->vanus</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->bm</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->eriala</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->email</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->telnr</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$VP->pairId</a></center></td>";
-                    $html .= "</tr>";
-                }else{
                     $html .= "<tr>";
                     $html .= "<td><center><a >$VP->eesnimi</a></center></td>";
                     $html .= "<td><center><a >$VP->perekonnanimi</a></center></td>";
@@ -67,9 +55,9 @@ $tudengiPaarid=$Pair->getTudengid();
                     $html .= "<td><center><a >$VP->eriala</a></center></td>";
                     $html .= "<td><center><a >$VP->email</a></center></td>";
                     $html .= "<td><center><a >$VP->telnr</a></center></td>";
-                    $html .= "<td><center><a >$VP->pairId</a></center></td>";
+                    $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$VP->pairId</a></center></td>";
                     $html .= "</tr>";
-                }
+
             }
             $html .= "</Table>";
             echo $html;
@@ -82,6 +70,7 @@ $tudengiPaarid=$Pair->getTudengid();
             $html = "<table style='width: 20%' class='table table-striped'>";
             $html .= "<tr>";
             $html .= "<th><center><a style='font-size: 20px' > PairId</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > PairId2</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Eesnimi</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Perenimi</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Vanus</center></th>";
@@ -94,21 +83,14 @@ $tudengiPaarid=$Pair->getTudengid();
 
 
             foreach($tudengiPaarid as $TP){
-                if($TP->pairId%2==0) {
                     $html .= "<tr>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->pairId</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->eesnimi</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->perekonnanimi</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->vanus</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->bm</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->eriala</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->email</a></center></td>";
-                    $html .= "<td style='background-color: lightblue'><center><a >$TP->telnr</a></center></td>";
-
-                    $html .= "</tr>";
-                }else{
-                    $html .= "<tr>";
-                    $html .= "<td><center><a >$TP->pairId</a></center></td>";
+                    if (isset($TP->pairId2)) {
+                        $html .= "<td><center><a >-</a></center></td>";
+                        $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TP->pairId2</a></center></td>";
+                    }else{
+                        $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TP->pairId</a></center></td>";
+                        $html .= "<td><center><a>-</a></center></td>";
+                    }
                     $html .= "<td><center><a >$TP->eesnimi</a></center></td>";
                     $html .= "<td><center><a >$TP->perekonnanimi</a></center></td>";
                     $html .= "<td><center><a >$TP->vanus</a></center></td>";
@@ -116,8 +98,9 @@ $tudengiPaarid=$Pair->getTudengid();
                     $html .= "<td><center><a >$TP->eriala</a></center></td>";
                     $html .= "<td><center><a >$TP->email</a></center></td>";
                     $html .= "<td><center><a >$TP->telnr</a></center></td>";
+
                     $html .= "</tr>";
-                }
+
             }
             $html .= "</Table>";
             echo $html;

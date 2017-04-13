@@ -16,6 +16,32 @@ class Pair
 
     }
 
+    function checkTudengPairIdStatus($id){
+
+        $stmt = $this->connection->prepare("
+                SELECT pairId 
+                FROM tudengid
+                WHERE id=?
+            ");
+        echo $this->connection->error;
+
+        $stmt->bind_param("i",$id);
+
+        $stmt->bind_result($pairId);
+        $stmt->execute();
+
+        if ($stmt->fetch()) {
+            $_SESSION["PairId1Status"]= $pairId;
+            echo "JOUDSIN SIIA";
+        }else {
+            echo "midagi valesti";
+            exit();
+        }
+
+        $stmt->close();
+
+    }
+
     function getPairId(){
 
         $stmt = $this->connection->prepare("
@@ -74,13 +100,28 @@ class Pair
     }
     function updateTudeng($pairId, $tudengiId){
 
-        $stmt = $this->connection->prepare("UPDATE tudengid SET pairId=? WHERE id=?");
+        $stmt = $this->connection->prepare("UPDATE tudengid SET pairId=?,mituVarju=mituVarju-1 WHERE id=?");
         $stmt->bind_param("ii", $pairId, $tudengiId);
 
         // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
             echo "Tudengi pairId salvestus õnnestus!";
+        }
+
+        $stmt->close();
+
+    }
+
+    function updateTudeng2($pairId, $tudengiId){
+
+        $stmt = $this->connection->prepare("UPDATE tudengid SET pairId2=?,mituVarju=mituVarju-1 WHERE id=?");
+        $stmt->bind_param("ii", $pairId, $tudengiId);
+
+        // kas õnnestus salvestada
+        if ($stmt->execute()) {
+            // õnnestus
+            echo "Tudengi pairId2 salvestus õnnestus!";
         }
 
         $stmt->close();
@@ -163,6 +204,48 @@ class Pair
             $tudeng->kursus = $kursus;
             $tudeng->bm = $bm;
             $tudeng->pairId = $pairId;
+
+            array_push($result, $tudeng);
+        }
+
+        $stmt->close();
+
+        return $result;
+    }
+
+    function getTudengid2(){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId2
+            FROM tudengid
+            WHERE pairId2 !=0
+            ORDER BY pairId
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId2);
+        $stmt->execute();
+
+
+        //tekitan massiivi
+        $result = array();
+
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            $tudeng = new StdClass();
+            $tudeng->id = $id;
+            $tudeng->eesnimi = $eesnimi;
+            $tudeng->perekonnanimi = $perenimi;
+            $tudeng->email = $email;
+            $tudeng->telnr = $telnr;
+            $tudeng->vanus = $vanus;
+            $tudeng->eriala = $eriala;
+            $tudeng->kursus = $kursus;
+            $tudeng->bm = $bm;
+            $tudeng->pairId2 = $pairId2;
 
             array_push($result, $tudeng);
         }

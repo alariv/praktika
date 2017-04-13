@@ -19,6 +19,9 @@ $vanusError = "";
 $eriala = "";
 $eriala2 = "";
 $visibility = "fadeable";
+$mituVarju="";
+$mituVarjuError="";
+
 
 
 
@@ -108,6 +111,15 @@ if (isset ($_POST ["eriala2"])) {
         $eriala2 = $_POST ["eriala2"];
     }
 }
+if (isset ($_POST ["mituVarju"])) {
+    // oli olemas, ehk keegi vajutas nuppu
+    if (empty($_POST ["mituVarju"])) {
+        //oli t�esti t�hi
+        $mituVarjuError = "vali mitu varju votad!";
+    } else {
+        $mituVarju = $_POST ["mituVarju"];
+    }
+}
 
 if ($bm == "baka") {
     $dropDownEriala=$Vari->getBaka();
@@ -129,6 +141,8 @@ if( isset($_POST["eesnimi"]) &&
     isset($_POST["kursus"]) &&
     isset($_POST["vanus"]) &&
     isset($_POST["eriala"]) &&
+    isset($_POST["mituVarju"]) &&
+    !empty($_POST["mituVarju"]) &&
     !empty($_POST["eesnimi"]) &&
     !empty($_POST["perenimi"]) &&
     !empty($_POST["email"]) &&
@@ -138,7 +152,7 @@ if( isset($_POST["eesnimi"]) &&
     !empty($_POST["eriala"])
 )	{
     echo "sainSISSE";
-    $Tudeng->saveTudeng($_POST["eesnimi"],$_POST["perenimi"],$_POST["email"],$_POST["telnr"],$_POST["kursus"],$_POST["vanus"],$_SESSION["bm"],$_POST["eriala"]);
+    $Tudeng->saveTudeng($_POST["eesnimi"],$_POST["perenimi"],$_POST["email"],$_POST["telnr"],$_POST["kursus"],$_POST["vanus"],$_SESSION["bm"],$_POST["eriala"],$_POST["mituVarju"]);
     header("Location: welcome.php");
     exit();
 }
@@ -188,6 +202,10 @@ if( isset($_POST["eesnimi"]) &&
             ?>
         </select><br><br>
         <input type="text" placeholder="Mitmes kursus" value="<?=$kursus;?>" name="kursus"><br><br>
+        mitu varju soovid: <select name="mituVarju">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select><br><br>
 
         <button style="width: 300px;height: 50px" type="submit">SALVESTA</button><br><br>
 
