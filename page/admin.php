@@ -46,7 +46,7 @@ if( isset($_POST["kasutaja"]) &&
     <div class="row justify-content-md-center">
         <div class="col-12 col-md-auto">
             <div class="loginWall">
-                <p class="pageHeading">Logi sisse</p>
+                <center><p class="pageHeading">Logi sisse</p></center>
                 <form  method="POST">
                     <?php echo $kasutajaError; ?><br>
                     <?php echo $parooliError; ?>
@@ -55,6 +55,7 @@ if( isset($_POST["kasutaja"]) &&
                     <button style="width: 300px;height: 50px;font-size: 30px" type="submit">LOGI SISSE</button><br><br>
                 </form>
             </div>
+            <center><a href="welcome.php" class="toRegister" style="width: 300px;text-align: center">AVALEHELE</a></center>
         </div>
     </div>
 </div>

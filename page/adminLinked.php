@@ -21,18 +21,29 @@ $tudengiPaarid=array_merge($Pair->getTudengid(),$Pair->getTudengid2())
 <?php require("../style/style.css");?>
 <html>
 <head>
-
+    <script src="../js/modify.js"></script>
+    <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="adminData.php"> Tagasi</a><a style="color: black;margin-left: 40%" href="welcome.php">Welcome page</a><a style="float: right;color: black" href="?logout=1">logi valja</a></p>
 </head>
 <body>
-<p class="pageHeading"><a onclick="goBack()"><-tagasi-</a>OLED ADMINIGA SISSE LOGITUD.... <a href="?logout=1">logi valja</a></p>
-<p  class="pageHeading">Kokku liidetud:</p>
+<text class="pageHeading">OLED ADMINIGA SISSE LOGITUD.... </text>
+<form  method="post">
+    <div  class="btn-group" style="position: fixed;right: 0;">
+        <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group" style="visibility: hidden">
+            <button type="submit" style="width: 250px" name="unPair">SEO LAHTI</button>
+            <button type="submit" style="width: 250px"  name="delTudeng">KUSTUTA TUDENG</button>
+            <button type="submit" style="width: 250px" name="delVari">KUSTUTA VARI</button>
+        </div>
+        <button style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
+    </div>
+</form>
+<br><br>
 <div class="container-fluid">
     <div class="row">
-        <div class="col">
+        <div class="col" style="float: right">
             <h6>Varjud: </h6>
             <?php
 
-            $html = "<table style='width: 20%;' class='table table-striped'>";
+            $html = "<table style='width: 20%' class='table table-striped'>";
             $html .= "<tr>";
             $html .= "<th><center><a style='font-size: 20px' > Eesnimi</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Perenimi</center></th>";

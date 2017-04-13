@@ -88,6 +88,28 @@ td,th,tr{
     overflow-y: auto;
     border:1px solid gray;
 }
+.delBtn{
+    font-size: 10;
+    background-color: white;
+    border: 1px solid #B71234;
+    color: #B71234
+}
+.delBtn:hover{
+    background-color: #B71234;
+    border: 1px solid #B71234;
+    color: white;
+}
+.selBtn{
+    font-size: 10;
+    background-color: #B71234;
+    border: 1px solid #B71234;
+    color: white;
+}
+.selBtn:hover{
+    background-color: white;
+    border: 1px solid #B71234;
+    color: #B71234;
+}
 
 </style>
 
