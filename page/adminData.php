@@ -126,6 +126,9 @@ if (isset ($_POST ["cancelDelete"])) {
     $cancel="visible";
     $modify="hidden";
 }
+if (isset ($_POST ["linkedStudents"])) {
+    header("Location:adminLinked");
+}
 if (isset ($_POST ["confirmDelete"])) {
     $modalVisibility="hidden;z-index: -100;";
     if( $_SESSION["deleteTV"]=="T") {
@@ -167,20 +170,20 @@ $tudengid = $Admin->getTudengid();
             <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid kustutada tudengi:</h5>
             <hr>
         <div style="margin-left: 10px">
-            <text>Eesnimi: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->eesnimi; ?></text><br>
-            <text>Perenimi: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->perekonnanimi ?></text><br>
-            <text>Email: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->email ?></text><br>
-            <text>Telefoni nr: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->telnr ?></text><br>
-            <text>Vanus: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->vanus ?></text><br>
-            <text>Aste: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->bm ?></text><br>
-            <text>Eriala: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->eriala ?></text><br>
-            <text>Kursus: </text><text style="font-weight: bold;text-transform: uppercase;"> <?php echo $DT->kursus ?></text><br>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eesnimi: </text><text class="confirmData"> <?php echo $DT->eesnimi; ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Perenimi: </text><text class="confirmData"> <?php echo $DT->perekonnanimi ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Email: </text><text class="confirmData"> <?php echo $DT->email ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Telefoni nr: </text><text class="confirmData"> <?php echo $DT->telnr ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Vanus: </text><text class="confirmData"> <?php echo $DT->vanus ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Aste: </text><text class="confirmData"> <?php echo $DT->bm ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala: </text><text class="confirmData"> <?php echo $DT->eriala ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala2: </text><text class="confirmData"> <?php echo $DT->kursus ?></text></div>
         </div>
         <?php $_SESSION["deleteTV"]="T";
         }elseif(isset ($_POST ["deleteVari"])){ ?>
             <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid kustutada tudengivarju:</h5>
             <hr>
-            <di>
+            <div style="margin-left: 10px">
                 <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eesnimi: </text><text class="confirmData"> <?php echo $DV->eesnimi; ?></text></div>
                 <div style="border-bottom: 1px solid gray;margin: 10px"><text>Perenimi: </text><text class="confirmData"> <?php echo $DV->perekonnanimi ?></text></div>
                 <div style="border-bottom: 1px solid gray;margin: 10px"><text>Email: </text><text class="confirmData"> <?php echo $DV->email ?></text></div>
@@ -189,7 +192,7 @@ $tudengid = $Admin->getTudengid();
                 <div style="border-bottom: 1px solid gray;margin: 10px"><text>Aste: </text><text class="confirmData"> <?php echo $DV->bm ?></text></div>
                 <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala: </text><text class="confirmData"> <?php echo $DV->eriala ?></text></div>
                 <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala2: </text><text class="confirmData"> <?php echo $DV->eriala2 ?></text></div>
-            </di>
+            </div>
         <?php $_SESSION["deleteTV"]="V";
         }?>
         <div style="margin-top: 40px">
@@ -416,8 +419,8 @@ $tudengid = $Admin->getTudengid();
             </form>
             <form style="visibility: <?php echo $modify ?>" method="post">
                 <div  class="btn-group-vertical" style="position: fixed;right: 0;bottom: 45%">
-                    <button id="btnGroupMain" style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
-                    <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group-vertical" style="opacity: 0;">
+                    <button id="btnGroupMain" style="width: 250px" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')">MUUDA</button>
+                    <div id="modifyBtns"  class="btn-group-vertical" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')" style="opacity: 0;visibility: hidden">
                         <button type="submit" style="margin-bottom:1px;margin-top: 1px;width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
                         <button type="submit" style="width: 250px" value="1" name="delVari">KUSTUTA VARI</button>
                     </div>
@@ -427,7 +430,7 @@ $tudengid = $Admin->getTudengid();
             <form method="post">
                 <div style="position: fixed;right: 0;bottom: 1%">
                     <button type="submit" style="width: 250px;float: right" name="pair">LIIDA KOKKU</button><br><br>
-                    <a href="adminLinked.php" class="toRegister" style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</a>
+                    <button style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</button>
                 </div>
             </form>
         </div>
