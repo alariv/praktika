@@ -227,37 +227,75 @@ $tudengid = $Admin->getTudengid();
 
 
             foreach($varjud as $V){
-                if( isset($_SESSION["pairVari"])){
-                    if($V->id == $_SESSION["pairVari"]) {
-                        if (isset($_SESSION["delVari"])) {
-                            $html .= "<tr>";
-                            if ($_SESSION["delVari"] == 1) {
-                                $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
-                            } else {
+                if (isset($_SESSION["delTudeng"]) && $_SESSION["delTudeng"] == 1) {
+                    $html .= "<tr>";
+                    $html .= "<td><center><button class='selBtn' style='background: #cecece;color: darkslategray;cursor: no-drop;border: none'>VALI</button></center></td>";
+                    $html .= "<td><center><a >$V->eesnimi</a></center></td>";
+                    $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
+                    $html .= "<td><center><a >$V->vanus</a></center></td>";
+                    $html .= "<td><center><a >$V->bm</a></center></td>";
+                    $html .= "<td><center><a >$V->eriala</a></center></td>";
+                    $html .= "<td><center><a >$V->eriala2</a></center></td>";
+                    $html .= "</tr>";
+                }else{
+                    if( isset($_SESSION["pairVari"])){
+                        if($V->id == $_SESSION["pairVari"]) {
+                            if (isset($_SESSION["delVari"])) {
+                                $html .= "<tr>";
+                                if ($_SESSION["delVari"] == 1) {
+                                    $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                } else {
+                                    $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
+                                }
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
+                                $html .= "</tr>";
+                            }else{
+                                $html .= "<tr>";
                                 $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
+                                $html .= "</tr>";
                             }
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
-                            $html .= "</tr>";
-                        }else{
-                            $html .= "<tr>";
-                            $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
-                            $html .= "</tr>";
-                        }
 
+                        } else{
+                            if (isset($_SESSION["delVari"])) {
+                                $html .= "<tr>";
+                                if ($_SESSION["delVari"] == 1) {
+                                    $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                } else {
+                                    $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
+                                }
+                                $html .= "<td><center><a >$V->eesnimi</a></center></td>";
+                                $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
+                                $html .= "<td><center><a >$V->vanus</a></center></td>";
+                                $html .= "<td><center><a >$V->bm</a></center></td>";
+                                $html .= "<td><center><a >$V->eriala</a></center></td>";
+                                $html .= "<td><center><a >$V->eriala2</a></center></td>";
+                                $html .= "</tr>";
+                            }else{
+                                $html .= "<tr>";
+                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
+                                $html .= "<td><center><a >$V->eesnimi</a></center></td>";
+                                $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
+                                $html .= "<td><center><a >$V->vanus</a></center></td>";
+                                $html .= "<td><center><a >$V->bm</a></center></td>";
+                                $html .= "<td><center><a >$V->eriala</a></center></td>";
+                                $html .= "<td><center><a >$V->eriala2</a></center></td>";
+                                $html .= "</tr>";
+                            }
+                        }
                     } else{
+                        $html .= "<tr>";
                         if (isset($_SESSION["delVari"])) {
-                            $html .= "<tr>";
                             if ($_SESSION["delVari"] == 1) {
                                 $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
                             } else {
@@ -270,8 +308,7 @@ $tudengid = $Admin->getTudengid();
                             $html .= "<td><center><a >$V->eriala</a></center></td>";
                             $html .= "<td><center><a >$V->eriala2</a></center></td>";
                             $html .= "</tr>";
-                        }else{
-                            $html .= "<tr>";
+                        } else{
                             $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
                             $html .= "<td><center><a >$V->eesnimi</a></center></td>";
                             $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
@@ -282,34 +319,10 @@ $tudengid = $Admin->getTudengid();
                             $html .= "</tr>";
                         }
                     }
-                } else{
-                    $html .= "<tr>";
-                    if (isset($_SESSION["delVari"])) {
-                        if ($_SESSION["delVari"] == 1) {
-                            $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
-                        } else {
-                            $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
-                        }
-                        $html .= "<td><center><a >$V->eesnimi</a></center></td>";
-                        $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
-                        $html .= "<td><center><a >$V->vanus</a></center></td>";
-                        $html .= "<td><center><a >$V->bm</a></center></td>";
-                        $html .= "<td><center><a >$V->eriala</a></center></td>";
-                        $html .= "<td><center><a >$V->eriala2</a></center></td>";
-                        $html .= "</tr>";
-                    } else{
-                        $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
-                        $html .= "<td><center><a >$V->eesnimi</a></center></td>";
-                        $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
-                        $html .= "<td><center><a >$V->vanus</a></center></td>";
-                        $html .= "<td><center><a >$V->bm</a></center></td>";
-                        $html .= "<td><center><a >$V->eriala</a></center></td>";
-                        $html .= "<td><center><a >$V->eriala2</a></center></td>";
-                        $html .= "</tr>";
-                    }
-                }
 
+                }
             }
+
             $html .= "</Table>";
             echo $html;
 
@@ -333,37 +346,72 @@ $tudengid = $Admin->getTudengid();
 
 
             foreach($tudengid as $T) {
-                if (isset($_SESSION["pairTudeng"])) {
-                    if ($T->id == $_SESSION["pairTudeng"]) {
-                        if (isset($_SESSION["delTudeng"])) {
-                            $html .= "<tr>";
-                            if ($_SESSION["delTudeng"] == 1) {
-                                $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
-                            } else {
+                if (isset($_SESSION["delVari"]) && $_SESSION["delVari"] == 1) {
+                                $html .= "<tr>";
+                                $html .= "<td><center></center><button class='selBtn' style='background: #cecece;color: darkslategray;cursor: no-drop;border: none'>VALI</button></center></td>";
+                                $html .= "<td><center><a >$T->eesnimi</a></center></td>";
+                                $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
+                                $html .= "<td><center><a >$T->vanus</a></center></td>";
+                                $html .= "<td><center><a >$T->bm</a></center></td>";
+                                $html .= "<td><center><a >$T->eriala</a></center></td>";
+                                $html .= "</tr>";
+                }else{
+                    if (isset($_SESSION["pairTudeng"])) {
+                        if ($T->id == $_SESSION["pairTudeng"]) {
+                            if (isset($_SESSION["delTudeng"])) {
+                                $html .= "<tr>";
+                                if ($_SESSION["delTudeng"] == 1) {
+                                    $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                } else {
+                                    $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
+                                }
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
+                                $html .= "</tr>";
+                            }else{
+                                $html .= "<tr>";
                                 $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
+                                $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
+                                $html .= "</tr>";
                             }
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
-                            $html .= "</tr>";
-                        }else{
-                            $html .= "<tr>";
-                            $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
-                            $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
-                            $html .= "</tr>";
+                        } else {
+                            if (isset($_SESSION["delTudeng"])) {
+                                $html .= "<tr>";
+                                if ($_SESSION["delTudeng"] == 1) {
+                                    $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                } else {
+                                    $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
+                                }
+                                $html .= "<td><center><a >$T->eesnimi</a></center></td>";
+                                $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
+                                $html .= "<td><center><a >$T->vanus</a></center></td>";
+                                $html .= "<td><center><a >$T->bm</a></center></td>";
+                                $html .= "<td><center><a >$T->eriala</a></center></td>";
+                                $html .= "</tr>";
+                            }else{
+                                $html .= "<tr>";
+                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
+                                $html .= "<td><center><a >$T->eesnimi</a></center></td>";
+                                $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
+                                $html .= "<td><center><a >$T->vanus</a></center></td>";
+                                $html .= "<td><center><a >$T->bm</a></center></td>";
+                                $html .= "<td><center><a >$T->eriala</a></center></td>";
+                                $html .= "</tr>";
+                            }
                         }
                     } else {
+                        $html .= "<tr>";
                         if (isset($_SESSION["delTudeng"])) {
-                            $html .= "<tr>";
-                            if ($_SESSION["delTudeng"] == 1) {
-                                $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
-                            } else {
+                            if($_SESSION["delTudeng"]==1) {
+                                $html .= "<td><center><form method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                            }else{
                                 $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
                             }
                             $html .= "<td><center><a >$T->eesnimi</a></center></td>";
@@ -373,7 +421,6 @@ $tudengid = $Admin->getTudengid();
                             $html .= "<td><center><a >$T->eriala</a></center></td>";
                             $html .= "</tr>";
                         }else{
-                            $html .= "<tr>";
                             $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
                             $html .= "<td><center><a >$T->eesnimi</a></center></td>";
                             $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
@@ -383,31 +430,10 @@ $tudengid = $Admin->getTudengid();
                             $html .= "</tr>";
                         }
                     }
-                } else {
-                    $html .= "<tr>";
-                    if (isset($_SESSION["delTudeng"])) {
-                        if($_SESSION["delTudeng"]==1) {
-                            $html .= "<td><center><form method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
-                        }else{
-                            $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
-                        }
-                        $html .= "<td><center><a >$T->eesnimi</a></center></td>";
-                        $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
-                        $html .= "<td><center><a >$T->vanus</a></center></td>";
-                        $html .= "<td><center><a >$T->bm</a></center></td>";
-                        $html .= "<td><center><a >$T->eriala</a></center></td>";
-                        $html .= "</tr>";
-                    }else{
-                        $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
-                        $html .= "<td><center><a >$T->eesnimi</a></center></td>";
-                        $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
-                        $html .= "<td><center><a >$T->vanus</a></center></td>";
-                        $html .= "<td><center><a >$T->bm</a></center></td>";
-                        $html .= "<td><center><a >$T->eriala</a></center></td>";
-                        $html .= "</tr>";
-                    }
                 }
             }
+
+
             $html .= "</Table>";
             echo $html;
 
@@ -427,7 +453,7 @@ $tudengid = $Admin->getTudengid();
                 </div>
             </form>
 
-            <form method="post">
+            <form style="visibility: <?php echo $modify ?>" method="post">
                 <div style="position: fixed;right: 0;bottom: 1%">
                     <button type="submit" style="width: 250px;float: right" name="pair">LIIDA KOKKU</button><br><br>
                     <button style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</button>

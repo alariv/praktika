@@ -139,7 +139,6 @@ table{
     padding-left: 10px;
 }
 .confirmData{
-    border-bottom: 1px solid gray;
     font-weight: bold;
     text-transform: uppercase;
     float: right;
@@ -151,6 +150,9 @@ table{
     transition: all 0.5s;
 }
 #btnGroupMain{
+    transition: all 0.5s;
+}
+.input-group{
     transition: all 0.5s;
 }
 

@@ -1,5 +1,7 @@
 <?php
 require("../functions.php");
+$unPairId="";
+
 $_SESSION["change"]=0;
 if($_SESSION["change"]==0){
     $cancel="hidden";
@@ -22,6 +24,39 @@ if(isset($_GET["logout"])) {
     exit();
 }
 
+if (isset ($_POST ["unPairId"])) {
+    // oli olemas, ehk keegi vajutas nuppu
+    if (empty($_POST ["unPairId"])) {
+        //oli t�esti t�hi
+        $unPairId = "";
+    } else {
+        $unPairId = $_POST ["unPairId"];
+        $_SESSION["unPairId"]=$_POST["unPairId"];
+        $modalVisibility="visible;z-index: 1001;";
+        $SLV = $Admin->unPairVariData($_POST["unPairId"]);
+        $SLT = $Admin->unPairTudengData($_POST["unPairId"]);
+    }
+}
+
+if (isset ($_POST ["cancelDelete"])) {
+    $modalVisibility="hidden;z-index: -100;";
+    $cancel="visible";
+    $modify="hidden";
+}
+if (isset ($_POST ["confirmDelete"])) {
+    $modalVisibility="hidden;z-index: -100;";
+    $Admin->unPairVari($_SESSION["unPairId"]);
+    $SLT = $Admin->unPairTudengData($_SESSION["unPairId"]);
+    echo $_SESSION["unPairId"];
+    if($SLT->pairId==$_SESSION["unPairId"]){
+        $Admin->unPairTudeng($_SESSION["unPairId"]);
+    }else{
+        $Admin->unPairTudeng2($_SESSION["unPairId"]);
+    }
+    $_SESSION["unPairId"] = 0;
+
+}
+
 
 
 
@@ -39,40 +74,22 @@ sort($tudengiPaarid);
 </head>
 <body>
 <div class="mymodal" style="visibility: <?php echo $modalVisibility ?>;">
-    <div align="left" class="confirm">
+    <div align="left" class="confirm" style="width: 600px">
         <div class="confirmHead">
             <text style="font-size: 22px;color: white;"><span style="font-size: 30px">T</span>EADE!</text>
         </div>
-
-        <?php if (isset ($_POST ["deleteTudeng"])){ ?>
-            <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid kustutada tudengi:</h5>
+            <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid lõhkuda seose:</h5>
             <hr>
-            <div style="margin-left: 10px">
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eesnimi: </text><text class="confirmData"> <?php echo $DT->eesnimi; ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Perenimi: </text><text class="confirmData"> <?php echo $DT->perekonnanimi ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Email: </text><text class="confirmData"> <?php echo $DT->email ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Telefoni nr: </text><text class="confirmData"> <?php echo $DT->telnr ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Vanus: </text><text class="confirmData"> <?php echo $DT->vanus ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Aste: </text><text class="confirmData"> <?php echo $DT->bm ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala: </text><text class="confirmData"> <?php echo $DT->eriala ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala2: </text><text class="confirmData"> <?php echo $DT->kursus ?></text></div>
-            </div>
-            <?php $_SESSION["deleteTV"]="T";
-        }elseif(isset ($_POST ["deleteVari"])){ ?>
-            <h5 style="margin-top: 20px;margin-left: 10px;font-weight: bold" >Soovid kustutada tudengivarju:</h5>
-            <hr>
-            <div style="margin-left: 10px">
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eesnimi: </text><text class="confirmData"> <?php echo $DV->eesnimi; ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Perenimi: </text><text class="confirmData"> <?php echo $DV->perekonnanimi ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Email: </text><text class="confirmData"> <?php echo $DV->email ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Telefoni nr: </text><text class="confirmData"> <?php echo $DV->telnr ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Vanus: </text><text class="confirmData"> <?php echo $DV->vanus ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Aste: </text><text class="confirmData"> <?php echo $DV->bm ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala: </text><text class="confirmData"> <?php echo $DV->eriala ?></text></div>
-                <div style="border-bottom: 1px solid gray;margin: 10px"><text>Eriala2: </text><text class="confirmData"> <?php echo $DV->eriala2 ?></text></div>
-            </div>
-            <?php $_SESSION["deleteTV"]="V";
-        }?>
+        <div style="margin-left: 10px">
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->eesnimi; ?></text><text class="confirmData"> <?php echo $SLT->eesnimi; ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->perekonnanimi; ?></text><text class="confirmData"> <?php echo $SLT->perekonnanimi ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->email; ?></text><text class="confirmData"> <?php echo $SLT->email ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->telnr; ?></text><text class="confirmData"> <?php echo $SLT->telnr ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->vanus; ?></text><text class="confirmData" > <?php echo $SLT->vanus ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->bm; ?></text><text class="confirmData"> <?php echo $SLT->bm ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->eriala; ?></text><text class="confirmData"> <?php echo $SLT->eriala ?></text></div>
+            <div style="border-bottom: 1px solid gray;margin: 10px"><text style="max-width: 150px;text-transform: uppercase;"><?php echo $SLV->eriala2; ?></text><text class="confirmData"> <?php echo $SLT->kursus ?></text></div>
+        </div>
         <div style="margin-top: 40px">
             <form method="post">
                 <button style="position: absolute;bottom: 0;left:0" name="cancelDelete">TÜHISTA</button>
@@ -85,9 +102,15 @@ sort($tudengiPaarid);
 <form  method="post">
     <div class="btn-group" style="position: absolute;right: 0">
         <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group" style="opacity: 0;visibility: hidden">
-            <button type="submit" style="width: 250px;background: #cecece;color: darkslategray;cursor: no-drop" name="unPair" disabled>SEO LAHTI</button>
+            <div class="input-group">
+                <form method="post">
+                    <input id="unPairId" type="text" placeholder="Vali id" value="<?=$unPairId; ?>" name="unPairId">
+                    <button id="unPairButton" type="submit" style="width: 250px" name="unPair">SEO LAHTI</button>
+                </form>
+            </div>
         </div>
         <button id="btnGroupMain" style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
+
     </div>
 </form>
 <br><br>

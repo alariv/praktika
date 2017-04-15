@@ -32,7 +32,6 @@ class Pair
 
         if ($stmt->fetch()) {
             $_SESSION["PairId1Status"]= $pairId;
-            echo "JOUDSIN SIIA";
         }else {
             echo "midagi valesti";
             exit();
@@ -58,7 +57,6 @@ class Pair
 
         if ($stmt->fetch()) {
             $_SESSION["PairId"]= $pairId;
-            echo "JOUDSIN SIIA";
         }else {
             echo "midagi valesti";
             exit();
@@ -77,7 +75,6 @@ class Pair
         // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-            echo "PairId uuendamine õnnestus!";
         }
 
         $stmt->close();
@@ -92,7 +89,6 @@ class Pair
         // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-            echo "Varju pairId salvestus õnnestus!";
         }
 
         $stmt->close();
@@ -106,7 +102,6 @@ class Pair
         // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-            echo "Tudengi pairId salvestus õnnestus!";
         }
 
         $stmt->close();
@@ -121,7 +116,6 @@ class Pair
         // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-            echo "Tudengi pairId2 salvestus õnnestus!";
         }
 
         $stmt->close();

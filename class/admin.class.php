@@ -115,7 +115,7 @@ class Admin
         $stmt = $this->connection->prepare("
 			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
             FROM tudengid
-            WHERE mituVarju!=0 and deleted is NULL 
+            WHERE mituVarju>0 and deleted is NULL 
             ORDER BY eriala
 		");
         echo $this->connection->error;
@@ -256,6 +256,130 @@ class Admin
         if ($stmt->execute()) {
             // õnnestus
 //            echo "Varju kustutamine õnnestus!";
+        }
+
+        $stmt->close();
+
+    }
+
+    function unPairVariData($id){
+
+        $stmt = $this->connection->prepare("
+			SELECT eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, eriala2, bm
+            FROM tudengivarjud
+            WHERE pairId=?
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("i", $id);
+
+        $stmt->bind_result($eesnimi,$perenimi,$email,$telnr,$vanus,$eriala,$eriala2,$bm);
+        $stmt->execute();
+
+
+        $vari = new StdClass();
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            $vari->eesnimi = $eesnimi;
+            $vari->perekonnanimi = $perenimi;
+            $vari->email = $email;
+            $vari->telnr = $telnr;
+            $vari->vanus = $vanus;
+            $vari->eriala = $eriala;
+            $vari->eriala2 = $eriala2;
+            $vari->bm = $bm;
+
+        }
+
+        $stmt->close();
+
+        return $vari;
+    }
+    function unPairTudengData($id){
+
+        $stmt = $this->connection->prepare("
+			SELECT eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId, pairId2
+            FROM tudengid
+            WHERE pairId=? or pairId2=?
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("ii", $id,$id);
+
+        $stmt->bind_result($eesnimi,$perenimi,$email,$telnr,$vanus,$eriala,$kursus,$bm,$pairId,$pairId2);
+        $stmt->execute();
+
+
+        $tudeng = new StdClass();
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+
+            $tudeng->eesnimi = $eesnimi;
+            $tudeng->perekonnanimi = $perenimi;
+            $tudeng->email = $email;
+            $tudeng->telnr = $telnr;
+            $tudeng->vanus = $vanus;
+            $tudeng->eriala = $eriala;
+            $tudeng->kursus = $kursus;
+            $tudeng->bm = $bm;
+            $tudeng->pairId = $pairId;
+            $tudeng->pairId2 = $pairId2;
+
+        }
+
+        $stmt->close();
+
+        return $tudeng;
+    }
+    function unPairTudeng($id){
+
+        $stmt = $this->connection->prepare("UPDATE tudengid SET pairId=0,mituVarju=mituvarju+1 WHERE pairId=?");
+
+        $stmt->bind_param("i", $id);
+
+        // kas õnnestus salvestada
+        if ($stmt->execute()) {
+            // õnnestus
+//        echo "Tudengi kustutamine õnnestus!";
+        }
+
+        $stmt->close();
+
+    }
+
+
+    function unPairTudeng2($id){
+
+        $stmt = $this->connection->prepare("UPDATE tudengid SET pairId2=0,mituVarju=mituvarju+1 WHERE pairId2=?");
+
+        $stmt->bind_param("i", $id);
+
+        // kas õnnestus salvestada
+        if ($stmt->execute()) {
+            // õnnestus
+//        echo "Tudengi kustutamine õnnestus!";
+        }
+
+        $stmt->close();
+
+    }
+
+    function unPairVari($id){
+
+        $stmt = $this->connection->prepare("UPDATE tudengivarjud SET pairId=0 WHERE pairId=?");
+
+        $stmt->bind_param("i", $id);
+
+        // kas õnnestus salvestada
+        if ($stmt->execute()) {
+            // õnnestus
+//        echo "Tudengi kustutamine õnnestus!";
         }
 
         $stmt->close();
