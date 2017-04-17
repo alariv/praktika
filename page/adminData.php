@@ -204,9 +204,31 @@ $tudengid = $Admin->getTudengid();
     </div>
 </div>
 
-<p class="pageHeading"> ADMIN </p>
+<text class="pageHeading"> ADMIN </text>
 
-<div class="container-fluid">
+<form method="post">
+    <button class="delBtn" style="font-size: 25px;position: fixed;width: 250px;right: 0;visibility: <?php echo $cancel ?>" name="cancel" value="0" >TÜHISTA</button>
+</form>
+<form style="visibility: <?php echo $modify ?>;margin-bottom: 66px" method="post">
+    <div  class="btn-group" style="position: absolute;right: 0;">
+
+        <div id="modifyBtns"  class="btn-group" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')" style="opacity: 0;visibility: hidden">
+            <button type="submit" style="width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
+            <button type="submit" style="width: 250px;margin-left: 1px;margin-right: 1px" value="1" name="delVari">KUSTUTA VARI</button>
+        </div>
+        <button id="btnGroupMain" style="width: 250px" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')">MUUDA</button>
+    </div>
+</form>
+
+<form style="position: absolute;right: 0;visibility: <?php echo $modify ?>;margin-bottom: 150px" method="post">
+    <div class="btn-group">
+        <button type="submit" style="width: 250px;margin-right: 1px ;float: right" name="pair">LIIDA KOKKU</button><br><br>
+        <button style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</button>
+    </div>
+</form>
+<br>
+
+<div class="container-fluid" style="margin-top: 50px">
     <div class="row">
         <div class="col">
             <h3>registreeritud varjud:</h3>
@@ -440,25 +462,7 @@ $tudengid = $Admin->getTudengid();
             ?>
         </div>
         <div class="col">
-            <form method="post">
-                <button class="delBtn" style="font-size: 25px;position: fixed;width: 250px;right: 0;bottom: 55%;visibility: <?php echo $cancel ?>" name="cancel" value="0" >TÜHISTA</button>
-            </form>
-            <form style="visibility: <?php echo $modify ?>" method="post">
-                <div  class="btn-group-vertical" style="position: fixed;right: 0;bottom: 45%">
-                    <button id="btnGroupMain" style="width: 250px" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')">MUUDA</button>
-                    <div id="modifyBtns"  class="btn-group-vertical" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')" style="opacity: 0;visibility: hidden">
-                        <button type="submit" style="margin-bottom:1px;margin-top: 1px;width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
-                        <button type="submit" style="width: 250px" value="1" name="delVari">KUSTUTA VARI</button>
-                    </div>
-                </div>
-            </form>
 
-            <form style="visibility: <?php echo $modify ?>" method="post">
-                <div style="position: fixed;right: 0;bottom: 1%">
-                    <button type="submit" style="width: 250px;float: right" name="pair">LIIDA KOKKU</button><br><br>
-                    <button style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>

@@ -47,7 +47,6 @@ if (isset ($_POST ["confirmDelete"])) {
     $modalVisibility="hidden;z-index: -100;";
     $Admin->unPairVari($_SESSION["unPairId"]);
     $SLT = $Admin->unPairTudengData($_SESSION["unPairId"]);
-    echo $_SESSION["unPairId"];
     if($SLT->pairId==$_SESSION["unPairId"]){
         $Admin->unPairTudeng($_SESSION["unPairId"]);
     }else{
