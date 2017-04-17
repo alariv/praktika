@@ -385,6 +385,31 @@ class Admin
         $stmt->close();
 
     }
+    function lookForPairId($pairId){
+
+        $stmt = $this->connection->prepare("
+                SELECT pairId 
+                FROM tudengivarjud
+                WHERE pairId=?
+            ");
+        echo $this->connection->error;
+
+        $stmt->bind_param("i",$pairId);
+
+        $stmt->bind_result($pairId);
+        $stmt->execute();
+
+        if ($stmt->fetch()) {
+            echo "muutsin";
+            $_SESSION["pairIdExists"]= 1;
+        }else {
+            header("location: adminLinked");
+            exit();
+        }
+
+        $stmt->close();
+
+    }
 
 
 }

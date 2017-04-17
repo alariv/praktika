@@ -13,6 +13,8 @@ if($_SESSION["change"]==0){
 $modalVisibility="hidden";
 if(!isset ($_SESSION["userId"])) {
 
+    session_destroy();
+
     header("Location: admin.php");
     exit();
 }
@@ -29,12 +31,17 @@ if (isset ($_POST ["unPairId"])) {
     if (empty($_POST ["unPairId"])) {
         //oli t�esti t�hi
         $unPairId = "";
-    } else {
-        $unPairId = $_POST ["unPairId"];
-        $_SESSION["unPairId"]=$_POST["unPairId"];
-        $modalVisibility="visible;z-index: 1001;";
-        $SLV = $Admin->unPairVariData($_POST["unPairId"]);
-        $SLT = $Admin->unPairTudengData($_POST["unPairId"]);
+    } elseif(is_int($_POST["unPairId"])){
+        $Admin->lookForPairId($_POST ["unPairId"]);
+        if($_SESSION["pairIdExists"]==1) {
+            $unPairId = $_POST ["unPairId"];
+            $_SESSION["unPairId"] = $_POST["unPairId"];
+            $modalVisibility = "visible;z-index: 1001;";
+            $SLV = $Admin->unPairVariData($_POST["unPairId"]);
+            $SLT = $Admin->unPairTudengData($_POST["unPairId"]);
+        }else{
+            $unPairId = "";
+        }
     }
 }
 

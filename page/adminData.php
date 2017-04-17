@@ -265,17 +265,25 @@ $tudengid = $Admin->getTudengid();
                             if (isset($_SESSION["delVari"])) {
                                 $html .= "<tr>";
                                 if ($_SESSION["delVari"] == 1) {
-                                    $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                    $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$V->id' name='deleteVari' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                    $html .= "<td><center><a >$V->eesnimi</a></center></td>";
+                                    $html .= "<td><center><a >$V->perekonnanimi</a></center></td>";
+                                    $html .= "<td><center><a >$V->vanus</a></center></td>";
+                                    $html .= "<td><center><a >$V->bm</a></center></td>";
+                                    $html .= "<td><center><a >$V->eriala</a></center></td>";
+                                    $html .= "<td><center><a >$V->eriala2</a></center></td>";
+                                    $html .= "</tr>";
                                 } else {
                                     $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
+                                    $html .= "</tr>";
                                 }
-                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eesnimi</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$V->perekonnanimi</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$V->vanus</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$V->bm</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$V->eriala2</a></center></td>";
-                                $html .= "</tr>";
+
                             }else{
                                 $html .= "<tr>";
                                 $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$V->id' name='pairVari' class='selBtn'>VALI</button></form></center></td>";
@@ -383,16 +391,23 @@ $tudengid = $Admin->getTudengid();
                             if (isset($_SESSION["delTudeng"])) {
                                 $html .= "<tr>";
                                 if ($_SESSION["delTudeng"] == 1) {
-                                    $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                    $html .= "<td><center><form  method='POST' style='margin: 0'><button value='$T->id' name='deleteTudeng' class='delBtn'>KUSTUTA</button></form></center></td>";
+                                    $html .= "<td><center><a >$T->eesnimi</a></center></td>";
+                                    $html .= "<td><center><a >$T->perekonnanimi</a></center></td>";
+                                    $html .= "<td><center><a >$T->vanus</a></center></td>";
+                                    $html .= "<td><center><a >$T->bm</a></center></td>";
+                                    $html .= "<td><center><a >$T->eriala</a></center></td>";
+                                    $html .= "</tr>";
                                 } else {
                                     $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
+                                    $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
+                                    $html .= "</tr>";
                                 }
-                                $html .= "<td style='background-color: lightgreen'><center><a >$T->eesnimi</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$T->perekonnanimi</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$T->vanus</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$T->bm</a></center></td>";
-                                $html .= "<td style='background-color: lightgreen'><center><a >$T->eriala</a></center></td>";
-                                $html .= "</tr>";
+
                             }else{
                                 $html .= "<tr>";
                                 $html .= "<td style='background-color: lightgreen'><center><form  method='POST' style='margin: 0'><button value='$T->id' name='pairTudeng' class='selBtn'>VALI</button></form></center></td>";
