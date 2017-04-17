@@ -18,19 +18,15 @@ $vanus = "";
 $vanusError = "";
 $eriala = "";
 $eriala2 = "";
-$visibility = "fadeable";
 
 
 
-if (isset ($_POST ["bm"])) {
-    // oli olemas, ehk keegi vajutas nuppu
-    if (empty($_POST ["bm"])) {
-        //oli t�esti t�hi
-        $bmError = "Vali kraad!";
-    } else {
-        $bm = $_POST ["bm"];
-        $_SESSION["bm"]= $_POST ["bm"];
-    }
+if (isset ($_POST ["baka"])) {
+    $_SESSION["bm"]=$_POST["baka"];
+}
+
+if (isset ($_POST ["magi"])) {
+    $_SESSION["bm"]=$_POST["magi"];
 }
 
 if (isset ($_POST ["eesnimi"])) {
@@ -109,17 +105,15 @@ if (isset ($_POST ["eriala2"])) {
     }
 }
 
-if ($bm == "baka") {
-    $dropDownEriala=$Vari->getBaka();
-    $dropDownEriala2=$Vari->getBaka2();
-    $visibility = "fadeable fade-in";
+$bakaDropDownEriala=$Vari->getBaka();
+$bakaDropDownEriala2=$Vari->getBaka2();
 
-}
-if ($bm == "magi") {
-    $dropDownEriala=$Vari->getMagi();
-    $dropDownEriala2=$Vari->getMagi2();
-    $visibility = "fadeable fade-in";
-}
+
+
+$magiDropDownEriala=$Vari->getMagi();
+$magiDropDownEriala2=$Vari->getMagi2();
+
+echo $_SESSION["bm"];
 
 if( isset($_POST["eesnimi"]) &&
     isset($_POST["perenimi"]) &&
@@ -150,65 +144,122 @@ if( isset($_POST["eesnimi"]) &&
 
 <html>
 <head>
-    
+    <script type="text/javascript" src="../js/modify.js"></script>
 
 </head>
 
 <body>
+<div id="background">
 <br>
 <p class="pageHeading">
     Registreerimine VARJUKS
 </p>
 
-<form  method="POST">
-    <button value="baka" name="bm" placeholder="BAKA">BAKALAUREUS</button>
-    <button value="magi" name="bm" placeholder="MAGI">MAGISTER</button><br><br>
-</form>
-<form  method="POST" style=" transition:all 1s;" class="<?php echo $visibility ?>">
-    <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi" maxlength="50"><br><br>
-    <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi" maxlength="50"><br><br>
-    <input type="text" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
-    <input type="tel" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr" maxlength="15"><br><br>
-    <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool" maxlength="50"><br><br>
-    <input type="tel" placeholder="Vanus" value="<?=$vanus;?>" name="vanus" min="14" max="99" maxlength="2"><?php echo $vanusError; ?><br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-7">
+
+            <button id="baka" value="baka" name="bm" style=";width: 50%" onclick="showBakaForm()">BAKALAUREUS</button>
+            <button id="magi" value="magi" name="bm" style="position: absolute;width: 50%;float: right;margin: 0" onclick="showMagiForm()">MAGISTER</button><br><br>
+            <div id="bakaForm" class="bakaForm" style="position: absolute;">
+                <form  method="POST" style=" transition:all 1s;">
+                    <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi" maxlength="50"><br><br>
+                    <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi" maxlength="50"><br><br>
+                    <input type="text" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
+                    <input type="tel" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr" maxlength="15"><br><br>
+                    <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool" maxlength="50"><br><br>
+                    <input type="tel" placeholder="Vanus" value="<?=$vanus;?>" name="vanus" min="14" max="99" maxlength="2"><?php echo $vanusError; ?><br><br>
 
 
-    1.eelistus: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
-        <?php
+                    1.eelistus: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
+                        <?php
 
-        $listHtml = "";
+                        $listHtml = "";
 
-        foreach($dropDownEriala as $d){
-
-
-            $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
-
-        }
-
-        echo $listHtml;
-
-        ?>
-    </select><br><br>
-    2.eelistus: <select name="eriala2" type="text" placeholder="Eriala" style="width: 150px">
-        <?php
-
-        $listHtml = "";
-
-        foreach($dropDownEriala2 as $d){
+                        foreach($bakaDropDownEriala as $d){
 
 
-            $listHtml .= "<option value='".$d->eriala2."'>".$d->eriala2."</option>";
+                            $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
 
-        }
+                        }
 
-        echo $listHtml;
+                        echo $listHtml;
 
-        ?>
-    </select><br><br>
-    <button style="width: 300px;height: 50px;font-size: 30px" type="submit">SALVESTA</button><br><br>
+                        ?>
+                    </select><br><br>
+                    2.eelistus: <select name="eriala2" type="text" placeholder="Eriala" style="width: 150px">
+                        <?php
 
-</form>
+                        $listHtml = "";
 
+                        foreach($bakaDropDownEriala2 as $d){
+
+
+                            $listHtml .= "<option value='".$d->eriala2."'>".$d->eriala2."</option>";
+
+                        }
+
+                        echo $listHtml;
+
+                        ?>
+                    </select><br><br>
+                    <button style="width: 100%;height: 50px;font-size: 30px" type="submit" value="baka" name="baka">SALVESTA</button><br><br>
+
+                </form>
+            </div>
+
+
+            <div id="magiForm" class="magiForm" style="position: absolute;right: 0">
+                <form  method="POST" style=" transition:all 1s;" >
+                    <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi" maxlength="50"><br><br>
+                    <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi" maxlength="50"><br><br>
+                    <input type="text" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
+                    <input type="tel" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr" maxlength="15"><br><br>
+                    <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool" maxlength="50"><br><br>
+                    <input type="tel" placeholder="Vanus" value="<?=$vanus;?>" name="vanus" min="14" max="99" maxlength="2"><?php echo $vanusError; ?><br><br>
+
+
+                    1.eelistus: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
+                        <?php
+
+                        $listHtml = "";
+
+                        foreach($magiDropDownEriala as $d){
+
+
+                            $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
+
+                        }
+
+                        echo $listHtml;
+
+                        ?>
+                    </select><br><br>
+                    2.eelistus: <select name="eriala2" type="text" placeholder="Eriala" style="width: 150px">
+                        <?php
+
+                        $listHtml = "";
+
+                        foreach($magiDropDownEriala2 as $d){
+
+
+                            $listHtml .= "<option value='".$d->eriala2."'>".$d->eriala2."</option>";
+
+                        }
+
+                        echo $listHtml;
+
+                        ?>
+                    </select><br><br>
+                    <button style="width: 100%;height: 50px;font-size: 30px" type="submit" value="magi" name="magi">SALVESTA</button><br><br>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
 </body>
 
 

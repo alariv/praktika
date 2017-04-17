@@ -25,13 +25,12 @@ if(isset($_GET["logout"])) {
     header("Location: admin.php");
     exit();
 }
-
 if (isset ($_POST ["unPairId"])) {
     // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["unPairId"])) {
         //oli t�esti t�hi
         $unPairId = "";
-    } elseif(is_int($_POST["unPairId"])){
+    } else{
         $Admin->lookForPairId($_POST ["unPairId"]);
         if($_SESSION["pairIdExists"]==1) {
             $unPairId = $_POST ["unPairId"];

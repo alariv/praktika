@@ -25,15 +25,12 @@ $mituVarjuError="";
 
 
 
-if (isset ($_POST ["bm"])) {
-    // oli olemas, ehk keegi vajutas nuppu
-    if (empty($_POST ["bm"])) {
-        //oli t�esti t�hi
-        $bmError = "Vali kraad!";
-    } else {
-        $bm = $_POST ["bm"];
-        $_SESSION["bm"]= $_POST ["bm"];
-    }
+if (isset ($_POST ["baka"])) {
+    $_SESSION["bm"]=$_POST["baka"];
+}
+
+if (isset ($_POST ["magi"])) {
+    $_SESSION["bm"]=$_POST["magi"];
 }
 
 if (isset ($_POST ["eesnimi"])) {
@@ -120,19 +117,8 @@ if (isset ($_POST ["mituVarju"])) {
         $mituVarju = $_POST ["mituVarju"];
     }
 }
-
-if ($bm == "baka") {
-    $dropDownEriala=$Vari->getBaka();
-    $dropDownEriala2=$Vari->getBaka2();
-    $visibility = "fadeable fade-in";
-
-}
-if ($bm == "magi") {
-    $dropDownEriala=$Vari->getMagi();
-    $dropDownEriala2=$Vari->getMagi2();
-    $visibility = "fadeable fade-in";
-
-}
+$bakaDropDownEriala=$Vari->getBaka();
+$magiDropDownEriala=$Vari->getMagi();
 
 if( isset($_POST["eesnimi"]) &&
     isset($_POST["perenimi"]) &&
@@ -163,7 +149,7 @@ if( isset($_POST["eesnimi"]) &&
 
 
     <head>
-
+        <script type="text/javascript" src="../js/modify.js"></script>
 
     </head>
 
@@ -173,43 +159,86 @@ if( isset($_POST["eesnimi"]) &&
         Registreerimine TUDENGIKS
     </p>
 
-    <form  method="POST">
-        <button value="baka" name="bm" placeholder="BAKA">BAKALAUREUS</button>
-        <button value="magi" name="bm" placeholder="MAGI">MAGISTER</button><br><br>
-    </form>
-    <form  method="POST" class="<?php echo $visibility ?>">
-        <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
-        <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
-        <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
-        <input type="text" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
-        <input type="text" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-7">
+
+                <button id="baka" value="baka" name="bm" style=";width: 50%" onclick="showBakaForm()">BAKALAUREUS</button>
+                <button id="magi" value="magi" name="bm" style="position: absolute;width: 50%;float: right;margin: 0" onclick="showMagiForm()">MAGISTER</button><br><br>
+
+                <div id="bakaForm" class="bakaForm" style="position: absolute;">
+                    <form  method="POST" style=" transition:all 1s;">
+                        <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
+                        <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
+                        <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
+                        <input type="text" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
+                        <input type="text" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
 
 
-        eriala: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
-            <?php
+                        eriala: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
+                            <?php
 
-            $listHtml = "";
+                            $listHtml = "";
 
-            foreach($dropDownEriala as $d){
+                            foreach($bakaDropDownEriala as $d){
 
 
-                $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
+                                $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
 
-            }
+                            }
 
-            echo $listHtml;
+                            echo $listHtml;
 
-            ?>
-        </select><br><br>
-        <input type="text" placeholder="Mitmes kursus" value="<?=$kursus;?>" name="kursus"><br><br>
-        mitu varju soovid: <select name="mituVarju">
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select><br><br>
+                            ?>
+                        </select><br><br>
+                        <input type="text" placeholder="Mitmes kursus" value="<?=$kursus;?>" name="kursus"><br><br>
+                        mitu varju soovid: <select name="mituVarju">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select><br><br>
 
-        <button style="width: 300px;height: 50px" type="submit">SALVESTA</button><br><br>
+                        <button style="width: 100%;height: 50px" type="submit" value="baka" name="baka">SALVESTA</button><br><br>
 
-    </form>
+                    </form>
+                </div>
+                <div id="magiForm" class="magiForm" style="position: absolute;right: 0">
+                    <form  method="POST" style=" transition:all 1s;">
+                        <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
+                        <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
+                        <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
+                        <input type="text" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
+                        <input type="text" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
+
+
+                        eriala: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
+                            <?php
+
+                            $listHtml = "";
+
+                            foreach($magiDropDownEriala as $d){
+
+
+                                $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
+
+                            }
+
+                            echo $listHtml;
+
+                            ?>
+                        </select><br><br>
+                        <input type="text" placeholder="Mitmes kursus" value="<?=$kursus;?>" name="kursus"><br><br>
+                        mitu varju soovid: <select name="mituVarju">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select><br><br>
+
+                        <button style="width: 100%;height: 50px" type="submit" value="baka" name="baka">SALVESTA</button><br><br>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </body>
 

@@ -47,6 +47,9 @@ button{
     padding-left: 15px;
     padding-right: 15px;
 }
+input{
+    width: 100%;
+}
 .toRegister{
     background-color: #B71234;
     padding: 15px;
@@ -54,9 +57,19 @@ button{
     color: white;
     text-decoration: none;
     font-size: 30px;
-
 }
-
+.bakaForm{
+    width: 48%;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s;
+}
+.magiForm{
+    width: 48%;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s;
+}
 .toRegister:hover{
     color: white;
     text-decoration: none;

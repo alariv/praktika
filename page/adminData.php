@@ -143,7 +143,6 @@ if (isset ($_POST ["confirmDelete"])) {
 
 }
 
-
 $varjud = $Admin->getVarjud();
 $tudengid = $Admin->getTudengid();
 
@@ -157,7 +156,7 @@ $tudengid = $Admin->getTudengid();
 <head>
     <script src="../js/modify.js"></script>
     <meta charset="utf-8">
-    <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="adminData.php"> Tagasi</a><a style="float: right;color: black" href="?logout=1">logi valja</a></p>
+    <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="adminLinked.php"> Tagasi</a><a style="float: right;color: white" href="?logout=1">logi valja</a></p>
 </head>
 <body>
 <div class="mymodal" style="visibility: <?php echo $modalVisibility ?>;">
