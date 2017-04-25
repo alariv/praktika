@@ -191,6 +191,7 @@ class Admin
 
         return $tudeng;
     }
+
     function getSingleVari($id){
 
         $stmt = $this->connection->prepare("
@@ -246,6 +247,7 @@ class Admin
     $stmt->close();
 
 }
+
     function deleteVari($id){
 
         $stmt = $this->connection->prepare("UPDATE tudengivarjud SET deleted=NOW() WHERE id=?");
@@ -298,6 +300,7 @@ class Admin
 
         return $vari;
     }
+
     function unPairTudengData($id){
 
         $stmt = $this->connection->prepare("
@@ -337,6 +340,7 @@ class Admin
 
         return $tudeng;
     }
+
     function unPairTudeng($id){
 
         $stmt = $this->connection->prepare("UPDATE tudengid SET pairId=0,mituVarju=mituvarju+1 WHERE pairId=?");
@@ -352,7 +356,6 @@ class Admin
         $stmt->close();
 
     }
-
 
     function unPairTudeng2($id){
 
@@ -385,6 +388,7 @@ class Admin
         $stmt->close();
 
     }
+
     function lookForPairId($pairId){
 
         $stmt = $this->connection->prepare("

@@ -113,7 +113,6 @@ $bakaDropDownEriala2=$Vari->getBaka2();
 $magiDropDownEriala=$Vari->getMagi();
 $magiDropDownEriala2=$Vari->getMagi2();
 
-echo $_SESSION["bm"];
 
 if( isset($_POST["eesnimi"]) &&
     isset($_POST["perenimi"]) &&
@@ -132,8 +131,16 @@ if( isset($_POST["eesnimi"]) &&
     !empty($_POST["eriala"]) &&
     !empty($_POST["eriala2"])
 )	{
-    echo "sainSISSE";
-    $Vari->saveVari($_POST["eesnimi"],$_POST["perenimi"],$_POST["email"],$_POST["telnr"],$_POST["kool"],$_POST["vanus"],$_SESSION["bm"],$_POST["eriala"],$_POST["eriala2"]);
+    
+	$firstname = $Helper->cleanInput($_POST["eesnimi"]);
+    $lastname = $Helper->cleanInput($_POST["perenimi"]);
+    $email = $Helper->cleanInput($_POST["email"]);
+    $phonenr = $Helper->cleanInput($_POST["telnr"]);
+    $age = $Helper->cleanInput($_POST["vanus"]);
+	$school = $Helper->cleanInput($_POST["kool"]);
+	
+	
+    $Vari->saveVari($firstname,$lastname,$email,$phonenr,$school,$age,$_SESSION["bm"],$_POST["eriala"],$_POST["eriala2"]);
     header("Location: welcome.php");
     exit();
 }
@@ -141,8 +148,8 @@ if( isset($_POST["eesnimi"]) &&
 
 <?php require("../header.php");?>
 <?php require("../style/style.css");?>
-
-<html>
+<!DOCTYPE html>
+<html lang="et">
 <head>
     <script type="text/javascript" src="../js/modify.js"></script>
 

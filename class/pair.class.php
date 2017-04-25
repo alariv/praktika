@@ -66,8 +66,6 @@ class Pair
 
     }
 
-
-
     function updatePairId(){
 
         $stmt = $this->connection->prepare("UPDATE paar SET pairId=pairId+1 WHERE id=1");
@@ -94,6 +92,7 @@ class Pair
         $stmt->close();
 
     }
+
     function updateTudeng($pairId, $tudengiId){
 
         $stmt = $this->connection->prepare("UPDATE tudengid SET pairId=?,mituVarju=mituVarju-1 WHERE id=?");
@@ -165,15 +164,16 @@ class Pair
         return $result;
     }
 
-    function getTudengid(){
+    function getTudengid($pairId){
 
         $stmt = $this->connection->prepare("
 			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
             FROM tudengid
-            WHERE pairId !=0
+            WHERE pairId =?
             ORDER BY pairId
 		");
         echo $this->connection->error;
+        $stmt->bind_param("i", $pairId);
 
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
         $stmt->execute();
@@ -207,15 +207,16 @@ class Pair
         return $result;
     }
 
-    function getTudengid2(){
+    function getTudengid2($pairId){
 
         $stmt = $this->connection->prepare("
 			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId2
             FROM tudengid
-            WHERE pairId2 !=0
+            WHERE pairId2 =?
             ORDER BY pairId
 		");
         echo $this->connection->error;
+        $stmt->bind_param("i", $pairId);
 
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId2);
         $stmt->execute();

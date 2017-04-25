@@ -9,7 +9,7 @@ session_destroy();
 
 <?php require("../header.php");?>
 <?php require("../style/style.css");?>
-
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -35,10 +35,14 @@ session_destroy();
         </div>
         <div class="col">
                     <p style="font-size: large;border-left: solid 10px;border-left-color: #B71234;padding-left: 20px">
-                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
-                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
-                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
-                        Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst Siin on tutvustav tekst
+                        ääöüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõ'
+						äöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöü
+						üäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöü
+						õäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõ
+						üõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäö
+						üõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäü
+						õäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäö
+						üõäöpüõäöüüäüüõüõäöüõäüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöüõäöpüõäöüüäü
                     </p>
         </div>
     </div>

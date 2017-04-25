@@ -66,8 +66,8 @@ if (isset ($_POST ["confirmDelete"])) {
 
 
 $varjuPaarid=$Pair->getVarjud();
-$tudengiPaarid= array_merge($Pair->getTudengid(),$Pair->getTudengid2());
-sort($tudengiPaarid);
+//$tudengiPaarid= array_merge($Pair->getTudengid(),$Pair->getTudengid2());
+//sort($tudengiPaarid);
 
 ?>
 <?php require("../header.php");?>
@@ -135,6 +135,13 @@ sort($tudengiPaarid);
             $html .= "<th><center><a style='font-size: 20px' > Email</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Telefoni nr</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > PairId</center></th>";
+            $html .= "<th style='background-color: rgba(161,161,161,0.6)'><center><a > </center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > PairId</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > Eesnimi</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > Perenimi</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > Email</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > Telefoni nr</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > Vanus</center></th>";
 
 
 
@@ -149,56 +156,35 @@ sort($tudengiPaarid);
                     $html .= "<td><center><a >$VP->email</a></center></td>";
                     $html .= "<td><center><a >$VP->telnr</a></center></td>";
                     $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$VP->pairId</a></center></td>";
-                    $html .= "</tr>";
 
-            }
-            $html .= "</Table>";
-            echo $html;
-            ?>
-        </div>
-        <div class="col">
-            <h6>Tudengid: </h6>
-            <?php
-
-            $html = "<table style='width: 20%' class='table table-striped'>";
-            $html .= "<tr>";
-            $html .= "<th><center><a style='font-size: 20px' > PairId</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > PairId2</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Eesnimi</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Perenimi</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Vanus</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Aste</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Eriala</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Email</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Telefoni nr</center></th>";
-
-
-
-
-            foreach($tudengiPaarid as $TP){
-                    $html .= "<tr>";
-                    if (isset($TP->pairId2)) {
-                        $html .= "<td><center><a >-</a></center></td>";
-                        $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TP->pairId2</a></center></td>";
-                    }else{
-                        $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TP->pairId</a></center></td>";
-                        $html .= "<td><center><a>-</a></center></td>";
+                    $Tudeng1= $Pair->getTudengid($VP->pairId);
+                        foreach ($Tudeng1 as $TT) {
+                            $html .= "<td style='background-color: rgba(161,161,161,0.6)'><center><button class='selBtn'>SEO LAHTI</button></center></td>";
+                            $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TT->pairId</a></center></td>";
+                            $html .= "<td><center><a >$TT->eesnimi</a></center></td>";
+                            $html .= "<td><center><a >$TT->perekonnanimi</a></center></td>";
+                            $html .= "<td><center><a >$TT->email</a></center></td>";
+                            $html .= "<td><center><a >$TT->telnr</a></center></td>";
+                            $html .= "<td><center><a >$TT->vanus</a></center></td>";
+                            $html .= "</tr>";
+                        }
+                    $Tudeng2= $Pair->getTudengid2($VP->pairId);
+                    foreach ($Tudeng2 as $TT2) {
+                        $html .= "<td style='background-color: rgba(161,161,161,0.6)'><center><button class='selBtn'>SEO LAHTI</button></center></td>";
+                        $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TT2->pairId2</a></center></td>";
+                        $html .= "<td><center><a >$TT2->eesnimi</a></center></td>";
+                        $html .= "<td><center><a >$TT2->perekonnanimi</a></center></td>";
+                        $html .= "<td><center><a >$TT2->email</a></center></td>";
+                        $html .= "<td><center><a >$TT2->telnr</a></center></td>";
+                        $html .= "<td><center><a >$TT2->vanus</a></center></td>";
+                        $html .= "</tr>";
                     }
-                    $html .= "<td><center><a >$TP->eesnimi</a></center></td>";
-                    $html .= "<td><center><a >$TP->perekonnanimi</a></center></td>";
-                    $html .= "<td><center><a >$TP->vanus</a></center></td>";
-                    $html .= "<td><center><a >$TP->bm</a></center></td>";
-                    $html .= "<td><center><a >$TP->eriala</a></center></td>";
-                    $html .= "<td><center><a >$TP->email</a></center></td>";
-                    $html .= "<td><center><a >$TP->telnr</a></center></td>";
-
-                    $html .= "</tr>";
-
             }
             $html .= "</Table>";
             echo $html;
             ?>
         </div>
+
     </div>
 </div>
 

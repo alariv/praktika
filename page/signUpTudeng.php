@@ -137,8 +137,13 @@ if( isset($_POST["eesnimi"]) &&
     !empty($_POST["vanus"]) &&
     !empty($_POST["eriala"])
 )	{
-    echo "sainSISSE";
-    $Tudeng->saveTudeng($_POST["eesnimi"],$_POST["perenimi"],$_POST["email"],$_POST["telnr"],$_POST["kursus"],$_POST["vanus"],$_SESSION["bm"],$_POST["eriala"],$_POST["mituVarju"]);
+    $firstname = $Helper->cleanInput($_POST["eesnimi"]);
+    $lastname = $Helper->cleanInput($_POST["perenimi"]);
+    $email = $Helper->cleanInput($_POST["email"]);
+    $phonenr = $Helper->cleanInput($_POST["telnr"]);
+    $course = $Helper->cleanInput($_POST["kursus"]);
+    $age = $Helper->cleanInput($_POST["vanus"]);
+    $Tudeng->saveTudeng($firstname,$lastname,$email,$phonenr,$course,$age,$_SESSION["bm"],$_POST["eriala"],$_POST["mituVarju"]);
     header("Location: welcome.php");
     exit();
 }
@@ -171,8 +176,8 @@ if( isset($_POST["eesnimi"]) &&
                         <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
                         <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
                         <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
-                        <input type="text" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
-                        <input type="text" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
+                        <input type="number" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
+                        <input type="number" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
 
 
                         eriala: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">
@@ -206,8 +211,8 @@ if( isset($_POST["eesnimi"]) &&
                         <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
                         <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
                         <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
-                        <input type="text" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
-                        <input type="text" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
+                        <input type="number" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
+                        <input type="number" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
 
 
                         eriala: <select name="eriala" type="text" placeholder="Eriala" style="width: 150px">

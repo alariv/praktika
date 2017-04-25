@@ -5,6 +5,7 @@ require("../../../config.php");
 
 $database = "if16_Aaviste_praktika";
 $mysqli = new mysqli( $serverHost, $serverUsername, $serverPassword, $database);
+mysqli_set_charset($mysqli, "utf8");
 
 require("class/vari.class.php");
 $Vari = new Vari($mysqli);
