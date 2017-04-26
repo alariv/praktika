@@ -415,5 +415,153 @@ class Admin
 
     }
 
+    function getWelcomeText(){
+
+        $stmt = $this->connection->prepare("
+			SELECT tekst
+            FROM tervitusTekst
+            ORDER BY id DESC
+            LIMIT 1;
+		");
+        echo $this->connection->error;
+
+//        $stmt->bind_param("i", $id);
+
+        $stmt->bind_result($textFromDb);
+        $stmt->execute();
+
+
+        $text = new StdClass();
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+
+            $text->text = $textFromDb;
+
+
+        }
+
+        $stmt->close();
+
+        return $text;
+    }
+
+    function saveNewText($newText){
+
+
+        //yhendus olemas
+        //kask
+        $stmt = $this->connection->prepare("
+            INSERT INTO tervitusTekst (tekst) 
+            VALUES (?)");
+
+        echo $this->connection->error;
+        //asendan kysimargid vaartustega
+        //iga muutuja kohta 1 taht
+        //s tahistab stringi
+        //i integer
+        //d double/float
+        $stmt->bind_param("s", $newText);
+
+        if ($stmt->execute()) {
+            echo "salvestamine onnestus ";
+        } else {
+            echo "ERROR " . $stmt->error;
+        }
+    }
+
+    function getSpecificVarjud($eriala){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, kool, vanus, bm, eriala, eriala2, pairId
+            FROM tudengivarjud
+            WHERE pairId=0 AND deleted is NULL AND (eriala=? OR eriala2=?)
+            ORDER BY eriala
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("ss", $eriala, $eriala);
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $kool, $vanus, $bm, $eriala, $eriala2, $pairId);
+        $stmt->execute();
+
+
+        //tekitan massiivi
+        $result = array();
+
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            $person = new StdClass();
+            $person->id = $id;
+            $person->eesnimi = $eesnimi;
+            $person->perekonnanimi = $perenimi;
+            $person->email = $email;
+            $person->telnr = $telnr;
+            $person->kool = $kool;
+            $person->vanus = $vanus;
+            $person->bm = $bm;
+            $person->eriala = $eriala;
+            $person->eriala2 = $eriala2;
+            $person->pairId = $pairId;
+
+            array_push($result, $person);
+        }
+
+        $stmt->close();
+
+        return $result;
+    }
+
+    function getSpecificTudengid($eriala){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
+            FROM tudengid
+            WHERE mituVarju>0 and deleted is NULL AND eriala=?
+            ORDER BY eriala
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("s", $eriala);
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
+        $stmt->execute();
+
+
+        //tekitan massiivi
+        $result = array();
+
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            $tudeng = new StdClass();
+            $tudeng->id = $id;
+            $tudeng->eesnimi = $eesnimi;
+            $tudeng->perekonnanimi = $perenimi;
+            $tudeng->email = $email;
+            $tudeng->telnr = $telnr;
+            $tudeng->vanus = $vanus;
+            $tudeng->eriala = $eriala;
+            $tudeng->kursus = $kursus;
+            $tudeng->bm = $bm;
+            $tudeng->pairId = $pairId;
+
+            array_push($result, $tudeng);
+        }
+
+        $stmt->close();
+
+        return $result;
+    }
+
+
+
 
 }

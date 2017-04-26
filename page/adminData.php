@@ -118,8 +118,11 @@ if (isset ($_POST ["deleteVari"])) {
     $DV = $Admin->getSingleVari($_POST["deleteVari"]);
     $cancel="visible";
     $modify="hidden";
-
-
+}
+if(isset ($_POST["changeText"])){
+    if (!empty($_POST ["changeText"])) {
+        header("Location: adminText.php");
+    }
 }
 if (isset ($_POST ["cancelDelete"])) {
     $modalVisibility="hidden;z-index: -100;";
@@ -140,12 +143,32 @@ if (isset ($_POST ["confirmDelete"])) {
     $modify = "visible";
     $_SESSION["delVari"] = 0;
     $_SESSION["delTudeng"] = 0;
+}
+if (isset ($_POST ["erialad"])) {
+        // oli olemas, ehk keegi vajutas nuppu
+        if (empty($_POST ["erialad"])) {
+            //oli t�esti t�hi
+            $bErialaError = "";
+        } else {
+            $bEriala = $_POST ["erialad"];
+            $varjud= $Admin->getSpecificVarjud($_POST ["erialad"]);
+            $tudengid= $Admin->getSpecificTudengid($_POST ["erialad"]);
 
+            $_POST ["erialad"]="";
+
+        }
+    }else{
+    $varjud = $Admin->getVarjud();
+    $tudengid = $Admin->getTudengid();
+}
+if (isset ($_POST ["cancelFilter"])) {
+    $_POST ["erialad"]="";
 }
 
-$varjud = $Admin->getVarjud();
-$tudengid = $Admin->getTudengid();
 
+
+$allRegistred=array_merge($Vari->getBaka(),$Vari->getMagi());
+sort($allRegistred);
 
 
 ?>
@@ -211,11 +234,12 @@ $tudengid = $Admin->getTudengid();
 <form style="visibility: <?php echo $modify ?>;margin-bottom: 66px" method="post">
     <div  class="btn-group" style="position: absolute;right: 0;">
 
-        <div id="modifyBtns"  class="btn-group" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')" style="opacity: 0;visibility: hidden">
-            <button type="submit" style="width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
+        <div id="modifyBtns"  class="btn-group" onmouseover="show('modifyBtns','btnGroupMain')" onmouseout="hide('modifyBtns','btnGroupMain')" style="opacity: 0;visibility: hidden">
+            <button type="submit" style="width: 250px;margin-right: 1" value="1" name="changeText">MUUDA TEKSTI</button>
             <button type="submit" style="width: 250px;margin-left: 1px;margin-right: 1px" value="1" name="delVari">KUSTUTA VARI</button>
+            <button type="submit" style="width: 250px" value="1" name="delTudeng">KUSTUTA TUDENG</button>
         </div>
-        <button id="btnGroupMain" style="width: 250px" onmouseover="show('modifyBtns')" onmouseout="hide('modifyBtns')">MUUDA</button>
+        <button id="btnGroupMain" style="width: 250px" onmouseover="show('modifyBtns','btnGroupMain')" onmouseout="hide('modifyBtns','btnGroupMain')">MUUDA</button>
     </div>
 </form>
 
@@ -225,7 +249,36 @@ $tudengid = $Admin->getTudengid();
         <button style="float: right" name="linkedStudents">KOKKU LIIDETUD TUDENGID</button>
     </div>
 </form>
-<br>
+
+
+    <div class="btn-group" style="position: absolute;right: -150;visibility: <?php echo $modify ?>;margin-top: 51px;margin-bottom: 150px;width: 300px">
+        <div id="erialad" class="btn-group" onmouseover="showErialad()" onmouseout="hideErialad()" style="position: absolute;height:100% ;visibility: hidden;opacity: 0;width: 300px">
+            <form method="post"><button type="submit" name="cancelFilter" style="position: absolute;right: 600px;px;opacity: 1">X</button></form>
+            <form method="post" type="submit">
+                <button type="submit" id="saveBtn" style="position: absolute;height: 100%;right: 458px;">SALVESTA</button>
+                <select  name="erialad" type="text" style="position: absolute;width: 156px;height:100%;right: 300px;">
+                    <?php
+
+                    $listHtml = "";
+
+                    foreach($allRegistred as $d){
+
+
+                        $listHtml .= "<option value='".$d->eriala."'>".$d->eriala."</option>";
+
+                    }
+
+                    echo $listHtml;
+
+                    ?>
+                </select>
+            </form>
+        </div>
+        <button style="float: right;margin-left: 1" id="btnGroupMain2" name="filter" onmouseover="showErialad()" onmouseout="hideErialad()">FILTREERI</button>
+    </div>
+
+<br><br>
+
 
 <div class="container-fluid" style="margin-top: 50px">
     <div class="row">
@@ -239,7 +292,7 @@ $tudengid = $Admin->getTudengid();
 
             $html .= "<th><center><a style='font-size: 20px' > Vali</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Eesnimi</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Perenimi</center></th>";
+            $html .= "<th><center><a style='font-size: 19px' > Perenimi</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Vanus</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Aste</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Eriala1</center></th>";
@@ -367,10 +420,10 @@ $tudengid = $Admin->getTudengid();
 
             $html .= "<th><center><a style='font-size: 20px' > Vali</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Eesnimi</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Perenimi</center></th>";
+            $html .= "<th><center><a style='font-size: 19px' > Perenimi</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Vanus</center></th>";
             $html .= "<th><center><a style='font-size: 20px' > Aste</center></th>";
-            $html .= "<th><center><a style='font-size: 20px' > Eriala1</center></th>";
+            $html .= "<th><center><a style='font-size: 20px' > Eriala</center></th>";
 
 
 

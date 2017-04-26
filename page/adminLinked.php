@@ -13,8 +13,6 @@ if($_SESSION["change"]==0){
 $modalVisibility="hidden";
 if(!isset ($_SESSION["userId"])) {
 
-    session_destroy();
-
     header("Location: admin.php");
     exit();
 }
@@ -25,7 +23,7 @@ if(isset($_GET["logout"])) {
     header("Location: admin.php");
     exit();
 }
-if (isset ($_POST ["unPairId"])) {
+/*if (isset ($_POST ["unPairId"])) {
     // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["unPairId"])) {
         //oli t�esti t�hi
@@ -42,6 +40,19 @@ if (isset ($_POST ["unPairId"])) {
             $unPairId = "";
         }
     }
+}*/
+
+if (isset ($_POST ["unPair"])) {
+    // oli olemas, ehk keegi vajutas nuppu
+    if (empty($_POST ["unPair"])) {
+        //oli t�esti t�hi
+        $unPairError = "VIGA!";
+    } else {
+        $_SESSION["unPair"]=$_POST["unPair"];
+        $modalVisibility = "visible;z-index: 1001;";
+        $SLV = $Admin->unPairVariData($_POST["unPair"]);
+        $SLT = $Admin->unPairTudengData($_POST["unPair"]);
+    }
 }
 
 if (isset ($_POST ["cancelDelete"])) {
@@ -50,16 +61,17 @@ if (isset ($_POST ["cancelDelete"])) {
     $modify="hidden";
 }
 if (isset ($_POST ["confirmDelete"])) {
-    $modalVisibility="hidden;z-index: -100;";
-    $Admin->unPairVari($_SESSION["unPairId"]);
-    $SLT = $Admin->unPairTudengData($_SESSION["unPairId"]);
-    if($SLT->pairId==$_SESSION["unPairId"]){
-        $Admin->unPairTudeng($_SESSION["unPairId"]);
-    }else{
-        $Admin->unPairTudeng2($_SESSION["unPairId"]);
+    if(isset($_SESSION["unPair"])) {
+        $modalVisibility = "hidden;z-index: -100;";
+        $Admin->unPairVari($_SESSION["unPair"]);
+        $SLT = $Admin->unPairTudengData($_SESSION["unPair"]);
+        if ($SLT->pairId == $_SESSION["unPair"]) {
+            $Admin->unPairTudeng($_SESSION["unPair"]);
+        } else {
+            $Admin->unPairTudeng2($_SESSION["unPair"]);
+        }
+        $_SESSION["unPair"] = 0;
     }
-    $_SESSION["unPairId"] = 0;
-
 }
 
 
@@ -75,7 +87,7 @@ $varjuPaarid=$Pair->getVarjud();
 <html>
 <head>
     <script src="../js/modify.js"></script>
-    <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="adminData.php"> Tagasi</a><a style="color: black;margin-left: 40%" href="welcome.php">Welcome page</a><a style="float: right;color: black" href="?logout=1">logi valja</a></p>
+    <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="adminData.php"> Admin</a><a style="color: black;margin-left: 40%" href="welcome.php">Welcome page</a><a style="float: right;color: black" href="?logout=1">logi valja</a></p>
 </head>
 <body>
 <div class="mymodal" style="visibility: <?php echo $modalVisibility ?>;">
@@ -104,25 +116,11 @@ $varjuPaarid=$Pair->getVarjud();
     </div>
 </div>
 <text class="pageHeading">OLED ADMINIGA SISSE LOGITUD.... </text>
-<form  method="post">
-    <div class="btn-group" style="position: absolute;right: 0">
-        <div id="modifyBtns" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')" class="btn-group" style="opacity: 0;visibility: hidden">
-            <div class="input-group">
-                <form method="post">
-                    <input id="unPairId" type="text" placeholder="Vali id" value="<?=$unPairId; ?>" name="unPairId">
-                    <button id="unPairButton" type="submit" style="width: 250px" name="unPair">SEO LAHTI</button>
-                </form>
-            </div>
-        </div>
-        <button id="btnGroupMain" style="width: 250px" onmouseenter="show('modifyBtns')" onmouseleave="hide('modifyBtns')">MUUDA</button>
-
-    </div>
-</form>
 <br><br>
 <div class="container-fluid">
     <div class="row">
         <div class="col" style="float: right">
-            <h6>Varjud: </h6>
+            <h6>Kokku liidetud paarid: </h6>
             <?php
 
             $html = "<table style='width: 20%' class='table table-striped'>";
@@ -159,7 +157,7 @@ $varjuPaarid=$Pair->getVarjud();
 
                     $Tudeng1= $Pair->getTudengid($VP->pairId);
                         foreach ($Tudeng1 as $TT) {
-                            $html .= "<td style='background-color: rgba(161,161,161,0.6)'><center><button class='selBtn'>SEO LAHTI</button></center></td>";
+                            $html .= "<td style='background-color: rgba(161,161,161,0.6)'><center><form method='post'><button class='selBtn' value='$VP->pairId' name='unPair'>SEO LAHTI</button></form></center></td>";
                             $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TT->pairId</a></center></td>";
                             $html .= "<td><center><a >$TT->eesnimi</a></center></td>";
                             $html .= "<td><center><a >$TT->perekonnanimi</a></center></td>";
@@ -170,7 +168,7 @@ $varjuPaarid=$Pair->getVarjud();
                         }
                     $Tudeng2= $Pair->getTudengid2($VP->pairId);
                     foreach ($Tudeng2 as $TT2) {
-                        $html .= "<td style='background-color: rgba(161,161,161,0.6)'><center><button class='selBtn'>SEO LAHTI</button></center></td>";
+                        $html .= "<td style='background-color: rgba(161,161,161,0.6)'><center><form method='post'><button class='selBtn' value='$VP->pairId' name='unPair'>SEO LAHTI</button></form></center></td>";
                         $html .= "<td><center><a style='font-size: 20px;font-weight: bold;color: #B71234'>$TT2->pairId2</a></center></td>";
                         $html .= "<td><center><a >$TT2->eesnimi</a></center></td>";
                         $html .= "<td><center><a >$TT2->perekonnanimi</a></center></td>";

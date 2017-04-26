@@ -2,16 +2,16 @@ var bakaForm = 0;
 var magiForm = 0;
 
 
-function show(id){
+function show(id,id2){
     document.getElementById(id).style.opacity="1";
     document.getElementById(id).style.visibility="visible";
-    document.getElementById('btnGroupMain').style.background="#801224";
+    document.getElementById(id2).style.background="#801224";
 
 };
-function hide(id){
+function hide(id,id2){
     document.getElementById(id).style.opacity="0";
     document.getElementById(id).style.visibility="hidden";
-    document.getElementById('btnGroupMain').style.background="#B71234";
+    document.getElementById(id2).style.background="#B71234";
 };
 function showUnPairInput(id) {
     document.getElementById(id).style.opacity="1";
@@ -45,6 +45,18 @@ function showMagiForm() {
         document.getElementById("magiForm").style.opacity = "0";
         magiForm=0;
     }
+}
+function showErialad() {
+        document.getElementById("erialad").style.visibility = "visible";
+        document.getElementById("erialad").style.opacity = "1";
+        document.getElementById("btnGroupMain2").style.background="#801224";
+    
+       
+}
+function hideErialad() {
+        document.getElementById("erialad").style.visibility = "hidden";
+        document.getElementById("erialad").style.opacity = "0";
+		document.getElementById("btnGroupMain2").style.background="#B71234";
 }
 
 

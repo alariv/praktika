@@ -155,7 +155,7 @@ if( isset($_POST["eesnimi"]) &&
 
     <head>
         <script type="text/javascript" src="../js/modify.js"></script>
-
+        <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="welcome.php"> Avaleht</a></p>
     </head>
 
     <body>
