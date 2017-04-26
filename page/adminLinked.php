@@ -77,6 +77,8 @@ if (isset ($_POST ["confirmDelete"])) {
 
 
 
+
+
 $varjuPaarid=$Pair->getVarjud();
 //$tudengiPaarid= array_merge($Pair->getTudengid(),$Pair->getTudengid2());
 //sort($tudengiPaarid);

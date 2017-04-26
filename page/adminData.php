@@ -69,6 +69,9 @@ if (isset ($_POST ["pair"])) {
         }
 
         $Pair->updateVari($_SESSION["PairId"], $_SESSION["pairVari"]);
+
+        foreach($varjud as $V){
+        echo
     }
 }
 if (isset ($_POST ["delTudeng"])) {

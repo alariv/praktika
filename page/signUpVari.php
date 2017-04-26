@@ -141,6 +141,22 @@ if( isset($_POST["eesnimi"]) &&
 	
 	
     $Vari->saveVari($firstname,$lastname,$email,$phonenr,$school,$age,$_SESSION["bm"],$_POST["eriala"],$_POST["eriala2"]);
+
+    require_once '../swiftmailer/lib/swift_required.php';
+
+    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+        ->setUsername('tlutudengivari2017@gmail.com')
+        ->setPassword('opelpoleauto');
+
+    $mailer = Swift_Mailer::newInstance($transport);
+
+    $message = Swift_Message::newInstance('Test Subject')
+        ->setFrom(array('tlutudengivari2017@gmail.com' => 'ABC'))
+        ->setTo(array($email))
+        ->setBody('Registreerusid edukalt tlu tudengivarju lehel tudengivarjuks.');
+
+    $result = $mailer->send($message);
+
     header("Location: welcome.php");
     exit();
 }

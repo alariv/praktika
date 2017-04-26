@@ -144,6 +144,22 @@ if( isset($_POST["eesnimi"]) &&
     $course = $Helper->cleanInput($_POST["kursus"]);
     $age = $Helper->cleanInput($_POST["vanus"]);
     $Tudeng->saveTudeng($firstname,$lastname,$email,$phonenr,$course,$age,$_SESSION["bm"],$_POST["eriala"],$_POST["mituVarju"]);
+
+    require_once '../swiftmailer/lib/swift_required.php';
+
+    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+        ->setUsername('tlutudengivari2017@gmail.com')
+        ->setPassword('opelpoleauto');
+
+    $mailer = Swift_Mailer::newInstance($transport);
+
+    $message = Swift_Message::newInstance('Test Subject')
+        ->setFrom(array('tlutudengivari2017@gmail.com' => 'ABC'))
+        ->setTo(array($email))
+        ->setBody('Registreerusid edukalt tlu tudengivarju lehel tudengiks.');
+
+    $result = $mailer->send($message);
+
     header("Location: welcome.php");
     exit();
 }
