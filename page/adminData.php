@@ -82,32 +82,70 @@ if (isset ($_POST ["pair"])) {
 
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
             ->setUsername('tlutudengivari2017@gmail.com')
-            ->setPassword('opelpoleauto');
+            ->setPassword($password);
 
         $mailer = Swift_Mailer::newInstance($transport);
 
-        $message = Swift_Message::newInstance('Test Subject')
+        $message = Swift_Message::newInstance('Tudengivarjunädal')
             ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
             ->setTo(array($_SESSION["variForEmail"][0]->email))
-            ->setBody('Tere! Sulle leiti tudengivarjunadalaks paariline:
-            '.$_SESSION["tudengForEmail"][0]->eesnimi." ".$_SESSION["tudengForEmail"][0]->perekonnanimi);
+            ->setBody('Tere '.$_SESSION["variForEmail"][0]->eesnimi.'! 
+
+Sulle leiti tudengivarjunädalaks paariline:
+'.$_SESSION["tudengForEmail"][0]->eesnimi." ".$_SESSION["tudengForEmail"][0]->perekonnanimi.'.
+
+
+'.$_SESSION["tudengForEmail"][0]->eesnimi.' andmed:
+
+Nimi: '.$_SESSION["tudengForEmail"][0]->eesnimi." ".$_SESSION["tudengForEmail"][0]->perekonnanimi.'
+Email: '.$_SESSION["tudengForEmail"][0]->email.'
+Telefoni: '.$_SESSION["tudengForEmail"][0]->telnr.'
+Vanus: '.$_SESSION["tudengForEmail"][0]->vanus.'
+Eriala: '.$_SESSION["tudengForEmail"][0]->eriala.'
+Kursus: '.$_SESSION["tudengForEmail"][0]->kursus.'
+
+Võta temaga ühendust ja leppige kokku sobivad ajad.
+
+Kui sulle tundub, et tekkinud on eksitus, siis võta ühendust administraatoriga.
+Email: tlutudengivarjuveeb2017@gmail.com
+
+
+Sinu Tudengivarjuveeb');
 
         $result = $mailer->send($message);
 
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
             ->setUsername('tlutudengivari2017@gmail.com')
-            ->setPassword('opelpoleauto');
+            ->setPassword($password);
 
         $mailer = Swift_Mailer::newInstance($transport);
 
-        $message = Swift_Message::newInstance('Test Subject')
+        $message = Swift_Message::newInstance('Tudengivarjunädal')
             ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
             ->setTo(array($_SESSION["tudengForEmail"][0]->email))
-            ->setBody('Tere! Sulle leiti tudengivarjunadalaks paariline:
-            '.$_SESSION["variForEmail"][0]->eesnimi." ".$_SESSION["variForEmail"][0]->perekonnanimi);
+            ->setBody('Tere '.$_SESSION["tudengForEmail"][0]->eesnimi.'!
+
+Sulle leiti tudengivarjunädala varjuks '.$_SESSION["variForEmail"][0]->eesnimi." ".$_SESSION["variForEmail"][0]->perekonnanimi.'.
+
+'.$_SESSION["variForEmail"][0]->eesnimi.' andmed:
+
+Nimi: '.$_SESSION["variForEmail"][0]->eesnimi." ".$_SESSION["variForEmail"][0]->perekonnanimi.'
+Email: '.$_SESSION["variForEmail"][0]->email.'
+Telefoni: '.$_SESSION["variForEmail"][0]->telnr.'
+Vanus: '.$_SESSION["variForEmail"][0]->vanus.'
+Kool: '.$_SESSION["variForEmail"][0]->kool.'
+
+Ta võtab sinuga ise ühendust.
+
+Kui sulle tundub, et tekkinud on eksitus, siis võta ühendust administraatoriga.
+Email: tlutudengivarjuveeb2017@gmail.com
+
+
+Sinu Tudengivarjuveeb');
 
         $result = $mailer->send($message);
-
+        $_SESSION["pairVari"]="";
+        $_SESSION["pairTudeng"]="";
     }
 }
 if (isset ($_POST ["delTudeng"])) {
@@ -175,6 +213,30 @@ if (isset ($_POST ["confirmDelete"])) {
     $modalVisibility="hidden;z-index: -100;";
     if( $_SESSION["deleteTV"]=="T") {
         $Admin->deleteTudeng($_SESSION["deleteTudeng"]);
+        $tudengForEmail=$Pair->getTudengForEmail($_SESSION["deleteTudeng"]);
+        $_SESSION["tudengForEmail"]=$tudengForEmail;
+        require_once '../swiftmailer/lib/swift_required.php';
+        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+            ->setUsername('tlutudengivari2017@gmail.com')
+            ->setPassword($password);
+
+        $mailer = Swift_Mailer::newInstance($transport);
+
+        $message = Swift_Message::newInstance('Tudengivarjunädal')
+            ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+            ->setTo(array($_SESSION["tudengForEmail"][0]->email))
+            ->setBody('Tere '.$_SESSION["tudengForEmail"][0]->eesnimi.'!
+
+Sinu taotlus osaleda Tallinna Ülikooli tudengivarjunädalal on kustutatud.
+
+Kui sulle tundub, et tekkinud on eksitus, siis võta ühendust administraatoriga.
+Email: tlutudengivarjuveeb2017@gmail.com
+
+
+Sinu Tudengivarjuveeb');
+
+        $result = $mailer->send($message);
+        $_SESSION["deleteTV"]="";
     }elseif( $_SESSION["deleteTV"]=="V"){
         $Admin->deleteVari($_SESSION["deleteVari"]);
     }

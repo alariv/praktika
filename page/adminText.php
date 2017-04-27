@@ -30,7 +30,7 @@ if(
 isset($_POST["textChanged"]) &&
 !empty($_POST["textChanged"])
 ){
-    $Admin->saveNewText($_POST["textChanged"]);
+    $Admin->saveNewText(urlencode($_POST["textChanged"]));
     header("Location: adminText.php");
     exit();
 }
@@ -38,8 +38,6 @@ isset($_POST["textChanged"]) &&
 
 
 $text = $Admin->getWelcomeText();
-
-
 
 
 
@@ -58,7 +56,7 @@ $text = $Admin->getWelcomeText();
         <div class="row">
             <div class="col">
                 <form method="post">
-                    <textarea style="width: 100%;height: 50%;" placeholder="uus tekst" name="textChanged"><?=$text->text;?></textarea>
+                    <textarea style="width: 100%;height: 50%;" placeholder="uus tekst" name="textChanged"><?=urldecode($text->text);?></textarea>
                     <button type="submit">SALVESTA</button>
                 </form>
             </div>

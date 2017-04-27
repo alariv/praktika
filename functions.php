@@ -22,6 +22,8 @@ $Pair = new Pair($mysqli);
 require("class/helper.class.php");
 $Helper = new Helper($mysqli);
 
+$password=$mailPassword;
+
 //alustan sessiooni
 //$_SESSION muutujad
 session_start();

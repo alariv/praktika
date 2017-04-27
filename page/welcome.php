@@ -37,7 +37,7 @@ $text = $Admin->getWelcomeText();
         </div>
         <div class="col">
                     <p style="font-size: large;border-left: solid 10px;border-left-color: #B71234;padding-left: 20px">
-                        <?=$text->text;?>
+                        <?=urldecode($text->text);?>
                     </p>
         </div>
     </div>
