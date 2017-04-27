@@ -154,7 +154,7 @@ if( isset($_POST["eesnimi"]) &&
     $mailer = Swift_Mailer::newInstance($transport);
 
     $message = Swift_Message::newInstance('Test Subject')
-        ->setFrom(array('tlutudengivari2017@gmail.com' => 'ABC'))
+        ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
         ->setTo(array($email))
         ->setBody('Registreerusid edukalt tlu tudengivarju lehel tudengiks.');
 

@@ -62,16 +62,52 @@ if (isset ($_POST ["pair"])) {
         $Pair->updatePairId();
         if($_SESSION["PairId1Status"]==0){
             $Pair->updateTudeng($_SESSION["PairId"], $_SESSION["pairTudeng"]);
+            $tudengForEmail=$Pair->getTudengForEmail($_SESSION["pairTudeng"]);
+            $_SESSION["tudengForEmail"]=$tudengForEmail;
 
         }else{
             $Pair->updateTudeng2($_SESSION["PairId"], $_SESSION["pairTudeng"]);
+            $tudengForEmail=$Pair->getTudengForEmail($_SESSION["pairTudeng"]);
+            $_SESSION["tudengForEmail"]=$tudengForEmail;
+
+
 
         }
-
+        $variForEmail=$Pair->getVariForEmail($_SESSION["pairVari"]);
         $Pair->updateVari($_SESSION["PairId"], $_SESSION["pairVari"]);
+        $_SESSION["variForEmail"]=$variForEmail;
 
-        foreach($varjud as $V){
-        echo
+
+        require_once '../swiftmailer/lib/swift_required.php';
+
+        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+            ->setUsername('tlutudengivari2017@gmail.com')
+            ->setPassword('opelpoleauto');
+
+        $mailer = Swift_Mailer::newInstance($transport);
+
+        $message = Swift_Message::newInstance('Test Subject')
+            ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+            ->setTo(array($_SESSION["variForEmail"][0]->email))
+            ->setBody('Tere! Sulle leiti tudengivarjunadalaks paariline:
+            '.$_SESSION["tudengForEmail"][0]->eesnimi." ".$_SESSION["tudengForEmail"][0]->perekonnanimi);
+
+        $result = $mailer->send($message);
+
+        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+            ->setUsername('tlutudengivari2017@gmail.com')
+            ->setPassword('opelpoleauto');
+
+        $mailer = Swift_Mailer::newInstance($transport);
+
+        $message = Swift_Message::newInstance('Test Subject')
+            ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+            ->setTo(array($_SESSION["tudengForEmail"][0]->email))
+            ->setBody('Tere! Sulle leiti tudengivarjunadalaks paariline:
+            '.$_SESSION["variForEmail"][0]->eesnimi." ".$_SESSION["variForEmail"][0]->perekonnanimi);
+
+        $result = $mailer->send($message);
+
     }
 }
 if (isset ($_POST ["delTudeng"])) {

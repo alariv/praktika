@@ -250,6 +250,94 @@ class Pair
         return $result;
     }
 
+    function getVariForEmail($id){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, kool, vanus, bm, eriala, eriala2, pairId
+            FROM tudengivarjud
+            WHERE id =?
+            ORDER BY pairId
+		");
+        echo $this->connection->error;
+
+        $stmt->bind_param("i", $id);
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $kool, $vanus, $bm, $eriala, $eriala2, $pairId);
+        $stmt->execute();
+
+
+        //tekitan massiivi
+        $result = array();
+
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            $variForEmail = new StdClass();
+            $variForEmail->id = $id;
+            $variForEmail->eesnimi = $eesnimi;
+            $variForEmail->perekonnanimi = $perenimi;
+            $variForEmail->email = $email;
+            $variForEmail->telnr = $telnr;
+            $variForEmail->kool = $kool;
+            $variForEmail->vanus = $vanus;
+            $variForEmail->bm = $bm;
+            $variForEmail->eriala = $eriala;
+            $variForEmail->eriala2 = $eriala2;
+            $variForEmail->pairId = $pairId;
+
+            array_push($result, $variForEmail);
+        }
+
+        $stmt->close();
+
+        return $result;
+    }
+
+    function getTudengForEmail($id){
+
+        $stmt = $this->connection->prepare("
+			SELECT id, eesnimi, perekonnanimi, email, telefoninr, vanus, eriala, kursus, bm, pairId
+            FROM tudengid
+            WHERE id =?
+            ORDER BY pairId
+		");
+        echo $this->connection->error;
+        $stmt->bind_param("i", $id);
+
+        $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
+        $stmt->execute();
+
+
+        //tekitan massiivi
+        $result = array();
+
+        // tee seda seni, kuni on rida andmeid
+        // mis vastab select lausele
+        while ($stmt->fetch()) {
+
+            //tekitan objekti
+            $tudeng = new StdClass();
+            $tudeng->id = $id;
+            $tudeng->eesnimi = $eesnimi;
+            $tudeng->perekonnanimi = $perenimi;
+            $tudeng->email = $email;
+            $tudeng->telnr = $telnr;
+            $tudeng->vanus = $vanus;
+            $tudeng->eriala = $eriala;
+            $tudeng->kursus = $kursus;
+            $tudeng->bm = $bm;
+            $tudeng->pairId = $pairId;
+
+            array_push($result, $tudeng);
+        }
+
+        $stmt->close();
+
+        return $result;
+    }
+
 
 
 
