@@ -2,13 +2,15 @@
 
 ![N|Solid](https://www.tlu.ee/UserFiles/Turundus-%20ja%20kommunikatsiooniosakond/Logo/TLU-logo-pilt-vrv-suur.jpg)
 
-Tudengivarjuveeb on tellitud Tallinna Ülikooli Üliõpilaskonna poolt ja on loodud selleks, et Tallinna Ülikooli Tudengivarjunädala korraldajatel ja osalejatel oleks lihtne teha järgnevaid asju:
+Tudengivarjuveeb on tellitud Tallinna Ülikooli Üliõpilaskonna poolt ja on loodud selleks, et Tallinna Ülikooli Tudengivarjunädala korraldajatel ja osalejatel oleks lihtne teha järgnevaid tegevusi:
 
   - Registreerida tudengiks
   - Registreerida tudengivarjuks
   - Näha registreerinud osalejaid
   - Panna paari registreerunud osalejaid
   - Vajadusel paari pandud osalejad lahku lüüa
+  
+Välja tooks veel eraldi sellise tehnoloogia nagu SwiftMaileri kasutamise, mis aitab hõlpsasti automaatselt emaile saata tudengite/tudengivarjude registreerimisel, nende paari panemisel ja lahku löömisel.
 
 # Mõned pildid lehest endast
 
@@ -35,6 +37,7 @@ _________________________________________________________
 - JavaScript
 - MySQL 5.5.54
 - PHP
+- SwiftMailer 6.0.0
 
 # Paigaldusjuhised
 
