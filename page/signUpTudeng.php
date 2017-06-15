@@ -170,7 +170,7 @@ if( isset($_POST["eesnimi"]) &&
 
 
     <head>
-        <script type="text/javascript" src="../js/modify.js"></script>
+        <script type="text/javascript" src="../js/modify.js" defer></script>
         <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="welcome.php"> Avaleht</a></p>
     </head>
 
@@ -191,7 +191,7 @@ if( isset($_POST["eesnimi"]) &&
                     <form  method="POST" style=" transition:all 1s;">
                         <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
                         <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
-                        <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
+                        <input type="email" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
                         <input type="number" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
                         <input type="number" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
 
@@ -226,7 +226,7 @@ if( isset($_POST["eesnimi"]) &&
                     <form  method="POST" style=" transition:all 1s;">
                         <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi"><br><br>
                         <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi"><br><br>
-                        <input type="text" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
+                        <input type="email" placeholder="Email" value="<?=$email;?>" name="email"><br><br>
                         <input type="number" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr"><br><br>
                         <input type="number" placeholder="Vanus" value="<?=$vanus;?>" name="vanus"><br><br>
 
