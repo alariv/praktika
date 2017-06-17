@@ -167,7 +167,7 @@ if( isset($_POST["eesnimi"]) &&
 <!DOCTYPE html>
 <html lang="et">
 <head>
-    <script type="text/javascript" src="../js/modify.js"></script>
+    <script type="text/javascript" src="../js/modify.js" defer></script>
     <p style="background-color: #B71234;font-size: 25px"><a style="color: black" href="welcome.php"> Avaleht</a></p>
 </head>
 
@@ -188,7 +188,7 @@ if( isset($_POST["eesnimi"]) &&
                 <form  method="POST" style=" transition:all 1s;">
                     <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi" maxlength="50"><br><br>
                     <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi" maxlength="50"><br><br>
-                    <input type="text" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
+                    <input type="email" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
                     <input type="tel" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr" maxlength="15"><br><br>
                     <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool" maxlength="50"><br><br>
                     <input type="tel" placeholder="Vanus" value="<?=$vanus;?>" name="vanus" min="14" max="99" maxlength="2"><?php echo $vanusError; ?><br><br>
@@ -236,7 +236,7 @@ if( isset($_POST["eesnimi"]) &&
                 <form  method="POST" style=" transition:all 1s;" >
                     <input type="text" placeholder="Eesnimi" value="<?=$eesnimi;?>" name="eesnimi" maxlength="50"><br><br>
                     <input type="text" placeholder="Perekonnanimi" value="<?=$perenimi;?>" name="perenimi" maxlength="50"><br><br>
-                    <input type="text" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
+                    <input type="email" placeholder="Email" value="<?=$email;?>" name="email" maxlength="50"><br><br>
                     <input type="tel" placeholder="Telefoninumber" value="<?=$telnr;?>" name="telnr" maxlength="15"><br><br>
                     <input type="text" placeholder="Kool" value="<?=$kool;?>" name="kool" maxlength="50"><br><br>
                     <input type="tel" placeholder="Vanus" value="<?=$vanus;?>" name="vanus" min="14" max="99" maxlength="2"><?php echo $vanusError; ?><br><br>
