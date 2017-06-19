@@ -7,18 +7,14 @@ $parool="";
 $parooliError="";
 
 if (isset ($_POST ["kasutaja"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["kasutaja"])) {
-        //oli t�esti t�hi
         $kasutajaError = "Sisesta kasutajanimi!";
     } else {
         $kasutaja = $_POST ["kasutaja"];
     }
 }
 if (isset ($_POST ["parool"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["parool"])) {
-        //oli t�esti t�hi
         $parooliError = "Sisesta parool!";
     } else {
         $parool = $_POST ["parool"];

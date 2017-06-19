@@ -34,9 +34,7 @@ if (isset ($_POST ["magi"])) {
 }
 
 if (isset ($_POST ["eesnimi"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["eesnimi"])) {
-        //oli t�esti t�hi
         $eesnimiError = "Eesnimi puudub!";
     } else {
         $eesnimi = $_POST ["eesnimi"];
@@ -44,9 +42,7 @@ if (isset ($_POST ["eesnimi"])) {
 }
 
 if (isset ($_POST ["perenimi"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["perenimi"])) {
-        //oli t�esti t�hi
         $perenimiError = "Perekonnanimi puudub!";
     } else {
         $perenimi = $_POST ["perenimi"];
@@ -54,9 +50,7 @@ if (isset ($_POST ["perenimi"])) {
 }
 
 if (isset ($_POST ["email"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["email"])) {
-        //oli t�esti t�hi
         $emailError = "Email puudub!";
     } else {
         $email = $_POST ["email"];
@@ -64,54 +58,42 @@ if (isset ($_POST ["email"])) {
 }
 
 if (isset ($_POST ["telnr"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["telnr"])) {
-        //oli t�esti t�hi
         $telnrError = "Telefoninumber puudub!";
     } else {
         $telnr = $_POST ["telnr"];
     }
 }
 if (isset ($_POST ["kursus"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["kursus"])) {
-        //oli t�esti t�hi
         $kursusError = "kursus puudub!";
     } else {
         $kursus = $_POST ["kursus"];
     }
 }
 if (isset ($_POST ["vanus"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["vanus"])) {
-        //oli t�esti t�hi
         $vanusError = "Vanus puudub!";
     } else {
         $vanus = $_POST ["vanus"];
     }
 }
 if (isset ($_POST ["eriala"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["eriala"])) {
-        //oli t�esti t�hi
         $erialaError = "eriala puudub!";
     } else {
         $eriala = $_POST ["eriala"];
     }
 }
 if (isset ($_POST ["eriala2"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["eriala2"])) {
-        //oli t�esti t�hi
         $eriala2Error = "Eriala puudub!";
     } else {
         $eriala2 = $_POST ["eriala2"];
     }
 }
 if (isset ($_POST ["mituVarju"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["mituVarju"])) {
-        //oli t�esti t�hi
         $mituVarjuError = "vali mitu varju votad!";
     } else {
         $mituVarju = $_POST ["mituVarju"];

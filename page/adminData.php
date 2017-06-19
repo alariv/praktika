@@ -149,9 +149,7 @@ Sinu Tudengivarjuveeb');
     }
 }
 if (isset ($_POST ["delTudeng"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["delTudeng"])) {
-        //oli t�esti t�hi
         $delTudengError = "";
     } else {
         $delTudeng = $_POST ["delTudeng"];
@@ -161,9 +159,7 @@ if (isset ($_POST ["delTudeng"])) {
     }
 }
 if (isset ($_POST ["delVari"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["delVari"])) {
-        //oli t�esti t�hi
         $delVariError = "";
     } else {
         $delVari = $_POST ["delVari"];
@@ -246,9 +242,7 @@ Sinu Tudengivarjuveeb');
     $_SESSION["delTudeng"] = 0;
 }
 if (isset ($_POST ["erialad"])) {
-        // oli olemas, ehk keegi vajutas nuppu
         if (empty($_POST ["erialad"])) {
-            //oli t�esti t�hi
             $bErialaError = "";
         } else {
             $bEriala = $_POST ["erialad"];

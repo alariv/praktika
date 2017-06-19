@@ -3,15 +3,11 @@
 class Pair
 {
 
-    //klassi sees saab kasutada
     private $connection;
 
-    //$user=new user(see); jouab siia sulgude vahele
     function __construct($mysqli)
     {
 
-        //klassi sees muutujua kasutamiseks $this->
-        //this viitab sellele klassile
         $this->connection = $mysqli;
 
     }
@@ -50,7 +46,6 @@ class Pair
             ");
         echo $this->connection->error;
 
-//        $stmt->bind_param("s",$bm);
 
         $stmt->bind_result($pairId);
         $stmt->execute();
@@ -70,9 +65,8 @@ class Pair
 
         $stmt = $this->connection->prepare("UPDATE paar SET pairId=pairId+1 WHERE id=1");
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
-            // õnnestus
+            // korras
         }
 
         $stmt->close();
@@ -84,9 +78,8 @@ class Pair
         $stmt = $this->connection->prepare("UPDATE tudengivarjud SET pairId=? WHERE id=?");
         $stmt->bind_param("ii", $pairId, $varjuId);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
-            // õnnestus
+            // korras
         }
 
         $stmt->close();
@@ -98,7 +91,6 @@ class Pair
         $stmt = $this->connection->prepare("UPDATE tudengid SET pairId=?,mituVarju=mituVarju-1 WHERE id=?");
         $stmt->bind_param("ii", $pairId, $tudengiId);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
         }
@@ -112,7 +104,6 @@ class Pair
         $stmt = $this->connection->prepare("UPDATE tudengid SET pairId2=?,mituVarju=mituVarju-1 WHERE id=?");
         $stmt->bind_param("ii", $pairId, $tudengiId);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
         }
@@ -134,15 +125,10 @@ class Pair
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $kool, $vanus, $bm, $eriala, $eriala2, $pairId);
         $stmt->execute();
 
-
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $person = new StdClass();
             $person->id = $id;
             $person->eesnimi = $eesnimi;
@@ -178,15 +164,10 @@ class Pair
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
         $stmt->execute();
 
-
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $tudeng = new StdClass();
             $tudeng->id = $id;
             $tudeng->eesnimi = $eesnimi;
@@ -222,14 +203,10 @@ class Pair
         $stmt->execute();
 
 
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $tudeng = new StdClass();
             $tudeng->id = $id;
             $tudeng->eesnimi = $eesnimi;
@@ -266,14 +243,10 @@ class Pair
         $stmt->execute();
 
 
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $variForEmail = new StdClass();
             $variForEmail->id = $id;
             $variForEmail->eesnimi = $eesnimi;
@@ -310,14 +283,10 @@ class Pair
         $stmt->execute();
 
 
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $tudeng = new StdClass();
             $tudeng->id = $id;
             $tudeng->eesnimi = $eesnimi;

@@ -110,11 +110,12 @@ CREATE TABLE `tudengivarjud` (
 ```
 # Config fail
 
+<?php
 	$serverHost = "xxxxxxxxx";
 	$serverUsername = "xxxx";
-	$serverPassword = "xxxxxxxx";
-	
+	$serverPassword = "xxxxxxxx";	
 	$mailPassword="xxxxxxxxxxxx";
+?>
 
 # Litsents
 

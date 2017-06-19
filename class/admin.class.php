@@ -3,15 +3,11 @@
 class Admin
 {
 
-    //klassi sees saab kasutada
     private $connection;
 
-    //$user=new user(see); jouab siia sulgude vahele
     function __construct($mysqli)
     {
 
-        //klassi sees muutujua kasutamiseks $this->
-        //this viitab sellele klassile
         $this->connection = $mysqli;
 
     }
@@ -22,7 +18,6 @@ class Admin
 
         $this->connection = new mysqli($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"],$GLOBALS["database"]);
 
-        //kask
         $stmt = $this->connection->prepare("
 			SELECT id, knimi, parool
 			FROM admin
@@ -31,15 +26,12 @@ class Admin
 
         echo $this->connection->error;
 
-        //asendan kysimargid
         $stmt->bind_param("s", $kasutaja);
 
-        //maaran tulpadele muutujad
         $stmt->bind_result($id, $kasutajaBaasist, $paroolBaasist);
         $stmt->execute();
 
         if($stmt->fetch()) {
-            //oli rida
 
 
             if($kasutaja == $kasutajaBaasist && $parool==$paroolBaasist){
@@ -49,8 +41,6 @@ class Admin
                 $_SESSION["userId"]= $id;
                 $_SESSION["user"]=$kasutajaBaasist;
 
-
-                //suunan uuele lehele
                 header("location: restoWELCOME.php");
 
 
@@ -81,14 +71,10 @@ class Admin
         $stmt->execute();
 
 
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $person = new StdClass();
             $person->id = $id;
             $person->eesnimi = $eesnimi;
@@ -123,15 +109,10 @@ class Admin
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
         $stmt->execute();
 
-
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $tudeng = new StdClass();
             $tudeng->id = $id;
             $tudeng->eesnimi = $eesnimi;
@@ -168,11 +149,7 @@ class Admin
 
 
         $tudeng = new StdClass();
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
-
-            //tekitan objekti
             
             $tudeng->id = $id;
             $tudeng->eesnimi = $eesnimi;
@@ -208,11 +185,8 @@ class Admin
 
 
         $vari = new StdClass();
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
 
             $vari->id = $id;
             $vari->eesnimi = $eesnimi;
@@ -238,10 +212,8 @@ class Admin
 
     $stmt->bind_param("i", $id);
 
-    // kas õnnestus salvestada
     if ($stmt->execute()) {
         // õnnestus
-//        echo "Tudengi kustutamine õnnestus!";
     }
 
     $stmt->close();
@@ -254,10 +226,8 @@ class Admin
 
         $stmt->bind_param("i", $id);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-//            echo "Varju kustutamine õnnestus!";
         }
 
         $stmt->close();
@@ -280,11 +250,8 @@ class Admin
 
 
         $vari = new StdClass();
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $vari->eesnimi = $eesnimi;
             $vari->perekonnanimi = $perenimi;
             $vari->email = $email;
@@ -317,11 +284,8 @@ class Admin
 
 
         $tudeng = new StdClass();
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
 
             $tudeng->eesnimi = $eesnimi;
             $tudeng->perekonnanimi = $perenimi;
@@ -347,10 +311,8 @@ class Admin
 
         $stmt->bind_param("i", $id);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-//        echo "Tudengi kustutamine õnnestus!";
         }
 
         $stmt->close();
@@ -363,10 +325,8 @@ class Admin
 
         $stmt->bind_param("i", $id);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-//        echo "Tudengi kustutamine õnnestus!";
         }
 
         $stmt->close();
@@ -379,10 +339,8 @@ class Admin
 
         $stmt->bind_param("i", $id);
 
-        // kas õnnestus salvestada
         if ($stmt->execute()) {
             // õnnestus
-//        echo "Tudengi kustutamine õnnestus!";
         }
 
         $stmt->close();
@@ -425,18 +383,14 @@ class Admin
 		");
         echo $this->connection->error;
 
-//        $stmt->bind_param("i", $id);
 
         $stmt->bind_result($textFromDb);
         $stmt->execute();
 
 
         $text = new StdClass();
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
 
             $text->text = $textFromDb;
 
@@ -450,19 +404,11 @@ class Admin
 
     function saveNewText($newText){
 
-
-        //yhendus olemas
-        //kask
         $stmt = $this->connection->prepare("
             INSERT INTO tervitusTekst (tekst) 
             VALUES (?)");
 
         echo $this->connection->error;
-        //asendan kysimargid vaartustega
-        //iga muutuja kohta 1 taht
-        //s tahistab stringi
-        //i integer
-        //d double/float
         $stmt->bind_param("s", $newText);
 
         if ($stmt->execute()) {
@@ -487,15 +433,10 @@ class Admin
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $kool, $vanus, $bm, $eriala, $eriala2, $pairId);
         $stmt->execute();
 
-
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $person = new StdClass();
             $person->id = $id;
             $person->eesnimi = $eesnimi;
@@ -532,15 +473,10 @@ class Admin
         $stmt->bind_result($id,$eesnimi,$perenimi,$email,$telnr, $vanus, $eriala, $kursus, $bm, $pairId);
         $stmt->execute();
 
-
-        //tekitan massiivi
         $result = array();
 
-        // tee seda seni, kuni on rida andmeid
-        // mis vastab select lausele
         while ($stmt->fetch()) {
 
-            //tekitan objekti
             $tudeng = new StdClass();
             $tudeng->id = $id;
             $tudeng->eesnimi = $eesnimi;

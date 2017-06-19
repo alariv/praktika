@@ -17,9 +17,7 @@ $textChanged="";
 $textChangedError="";
 
 if (isset ($_POST ["textChanged"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["textChanged"])) {
-        //oli t�esti t�hi
         $textChangedError = "Tekt puudub!";
     } else {
         $textChanged = $_POST ["textChanged"];

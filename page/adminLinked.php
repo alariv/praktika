@@ -23,29 +23,9 @@ if(isset($_GET["logout"])) {
     header("Location: admin.php");
     exit();
 }
-/*if (isset ($_POST ["unPairId"])) {
-    // oli olemas, ehk keegi vajutas nuppu
-    if (empty($_POST ["unPairId"])) {
-        //oli t�esti t�hi
-        $unPairId = "";
-    } else{
-        $Admin->lookForPairId($_POST ["unPairId"]);
-        if($_SESSION["pairIdExists"]==1) {
-            $unPairId = $_POST ["unPairId"];
-            $_SESSION["unPairId"] = $_POST["unPairId"];
-            $modalVisibility = "visible;z-index: 1001;";
-            $SLV = $Admin->unPairVariData($_POST["unPairId"]);
-            $SLT = $Admin->unPairTudengData($_POST["unPairId"]);
-        }else{
-            $unPairId = "";
-        }
-    }
-}*/
 
 if (isset ($_POST ["unPair"])) {
-    // oli olemas, ehk keegi vajutas nuppu
     if (empty($_POST ["unPair"])) {
-        //oli t�esti t�hi
         $unPairError = "VIGA!";
     } else {
         $_SESSION["unPair"]=$_POST["unPair"];
@@ -80,8 +60,6 @@ if (isset ($_POST ["confirmDelete"])) {
 
 
 $varjuPaarid=$Pair->getVarjud();
-//$tudengiPaarid= array_merge($Pair->getTudengid(),$Pair->getTudengid2());
-//sort($tudengiPaarid);
 
 ?>
 <?php require("../header.php");?>
