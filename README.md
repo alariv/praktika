@@ -110,6 +110,10 @@ CREATE TABLE `tudengivarjud` (
 ```
 # Config fail
 
+# Litsents
+
+Litsents asub projekti repositooriumi juurkaustas.
+
 ```php
 <?php
 	$serverHost = "xxxxxxxxx";
@@ -117,9 +121,3 @@ CREATE TABLE `tudengivarjud` (
 	$serverPassword = "xxxxxxxx";	
 	$mailPassword="xxxxxxxxxxxx";
 ?>
-php```
-
-# Litsents
-
-Litsents asub projekti repositooriumi juurkaustas.
-
