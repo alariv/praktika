@@ -107,6 +107,14 @@ CREATE TABLE `tudengivarjud` (
   `deleted` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
+# Config fail
+
+	$serverHost = "xxxxxxxxx";
+	$serverUsername = "xxxx";
+	$serverPassword = "xxxxxxxx";
+	
+	$mailPassword="xxxxxxxxxxxx";
+
 # Litsents
 
 Litsents asub projekti repositooriumi juurkaustas.
