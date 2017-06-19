@@ -116,7 +116,8 @@ CREATE TABLE `tudengivarjud` (
 	$serverUsername = "xxxx";
 	$serverPassword = "xxxxxxxx";	
 	$mailPassword="xxxxxxxxxxxx";
-?>```
+?>
+php```
 
 # Litsents
 
