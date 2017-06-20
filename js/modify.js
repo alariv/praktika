@@ -1,7 +1,7 @@
 var bakaFormd=document.getElementById("bakaForm");
 var magiFormd=document.getElementById("magiForm");
-var erialad=document.getElementById("erialad");
-var btnGroupMain2=document.getElementById("btnGroupMain2");
+
+
 var bakaForm = 0;
 var magiForm = 0;
 
@@ -55,13 +55,15 @@ function showMagiForm() {
     }
 }
 function showErialad() {
+    var erialad=document.getElementById("erialad");
+    var btnGroupMain2=document.getElementById("btnGroupMain2");
     erialad.style.visibility = "visible";
     erialad.style.opacity = "1";
     btnGroupMain2.style.background="#801224";
-
-
 }
 function hideErialad() {
+    var erialad=document.getElementById("erialad");
+    var btnGroupMain2=document.getElementById("btnGroupMain2");
     erialad.style.visibility = "hidden";
     erialad.style.opacity = "0";
     btnGroupMain2.style.background="#B71234";

@@ -25,7 +25,6 @@ class Vari
         return $result;
     }
     function getMagi(){
-
         $stmt = $this->connection->prepare("
                 SELECT eriala 
                 FROM eriala WHERE bm LIKE ('magi')
@@ -44,43 +43,30 @@ class Vari
         return $result;
     }
     function getBaka2(){
-
         $stmt = $this->connection->prepare("
                 SELECT eriala 
                 FROM eriala WHERE bm LIKE ('baka')
                 ORDER BY eriala
             ");
         echo $this->connection->error;
-
-
         $stmt->bind_result($eriala2);
         $stmt->execute();
-
         $result = array();
-
         while ($stmt->fetch()) {
-
             $d = new StdClass();
             $d->eriala2 = $eriala2;
-
             array_push($result, $d);
         }
-
         $stmt->close();
-
         return $result;
     }
-
     function getMagi2(){
-
         $stmt = $this->connection->prepare("
                 SELECT eriala 
                 FROM eriala WHERE bm LIKE ('magi')
                 ORDER BY eriala
             ");
         echo $this->connection->error;
-
-
         $stmt->bind_result($eriala2);
         $stmt->execute();
         $result = array();
