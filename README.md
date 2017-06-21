@@ -39,14 +39,14 @@ _________________________________________________________
 
 Kuna projekt ise on veebipõhine leht, siis kasutuseks ei ole muud vaja kui ühte mitmeist veebibrauseritest. Ise soovitame kasutada Google Chrome kõige uuemat versiooni (hetkel 59.0.3071.86).
 
-Leht asub Tallinna Ülikooli greeny serveris, millesse saab siseneda näiteks läbi sellise tarkvara nagu Putty ja sinna pääsevad ainult kasutajat omavad isikud. Tavakasutaja lehele pääsemiseks tuleb minna localhost:5555/~alarvere/praktika/welcome.php. Admini lehele pääsemiseks localhost:5555/~alarvere/praktika/admin.php, kasutajanimi on "admin" ja parooliks "opelpoleauto".
+Leht asub Tallinna Ülikooli greeny serveris, millesse saab siseneda näiteks läbi sellise tarkvara nagu Putty ja sinna pääsevad ainult kasutajat omavad isikud. Tavakasutaja lehele pääsemiseks tuleb minna localhost:5555/~alarvere/praktika/page/welcome.php. Admini lehele pääsemiseks localhost:5555/~alarvere/praktika/page/admin.php, kasutajanimi on "admin" ja parooliks "opelpoleauto".
 
 Step by step juhised, kuidas leht endal tööle saada:
 1) Klooni GitHubi repositoorium: https://github.com/alariv/praktika.git
 2) Loo tabelid (käsklused all pool)
 3) Mine asukohta, kuhu kloonisid GitHubi repositooriumi
-4) Tavakasutaja lehele saamiseks ava sealt "welcome.php", edasisi juhiseid on ekraanil näha
-5) Admini lehele pääsemiseks ava kloonitud kaustast "admin.php", kasutajanimi ja parool ülal välja toodud.
+4) Tavakasutaja lehele saamiseks ava sealt "page/welcome.php", edasisi juhiseid on ekraanil näha
+5) Admini lehele pääsemiseks ava kloonitud kaustast "page/admin.php", kasutajanimi ja parool ülal välja toodud.
 
 Kasutame ka MySQL'i tabeleid, millede valmistamise skriptid on:
 ```
