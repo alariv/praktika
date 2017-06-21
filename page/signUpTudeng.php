@@ -130,13 +130,13 @@ if( isset($_POST["eesnimi"]) &&
     require_once '../swiftmailer/lib/swift_required.php';
 
     $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
-        ->setUsername('tlutudengivari2017@gmail.com')
+        ->setUsername($mail)
         ->setPassword($password);
 
     $mailer = Swift_Mailer::newInstance($transport);
 
-    $message = Swift_Message::newInstance('Test Subject')
-        ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+    $message = Swift_Message::newInstance('Registreerimine õnnestus')
+        ->setFrom(array($mail => 'Tudengivarjuveeb'))
         ->setTo(array($email))
         ->setBody('Registreerusid edukalt tlu tudengivarju lehel tudengiks.');
 

@@ -81,13 +81,13 @@ if (isset ($_POST ["pair"])) {
         require_once '../swiftmailer/lib/swift_required.php';
 
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
-            ->setUsername('tlutudengivari2017@gmail.com')
+            ->setUsername($mail)
             ->setPassword($password);
 
         $mailer = Swift_Mailer::newInstance($transport);
 
         $message = Swift_Message::newInstance('Tudengivarjunädal')
-            ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+            ->setFrom(array($mail => 'Tudengivarjuveeb'))
             ->setTo(array($_SESSION["variForEmail"][0]->email))
             ->setBody('Tere '.$_SESSION["variForEmail"][0]->eesnimi.'! 
 
@@ -115,13 +115,13 @@ Sinu Tudengivarjuveeb');
         $result = $mailer->send($message);
 
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
-            ->setUsername('tlutudengivari2017@gmail.com')
+            ->setUsername($mail)
             ->setPassword($password);
 
         $mailer = Swift_Mailer::newInstance($transport);
 
         $message = Swift_Message::newInstance('Tudengivarjunädal')
-            ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+            ->setFrom(array($mail => 'Tudengivarjuveeb'))
             ->setTo(array($_SESSION["tudengForEmail"][0]->email))
             ->setBody('Tere '.$_SESSION["tudengForEmail"][0]->eesnimi.'!
 
@@ -213,13 +213,13 @@ if (isset ($_POST ["confirmDelete"])) {
         $_SESSION["tudengForEmail"]=$tudengForEmail;
         require_once '../swiftmailer/lib/swift_required.php';
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
-            ->setUsername('tlutudengivari2017@gmail.com')
+            ->setUsername($mail)
             ->setPassword($password);
 
         $mailer = Swift_Mailer::newInstance($transport);
 
         $message = Swift_Message::newInstance('Tudengivarjunädal')
-            ->setFrom(array('tlutudengivari2017@gmail.com' => 'Tudengivarjuveeb'))
+            ->setFrom(array($mail => 'Tudengivarjuveeb'))
             ->setTo(array($_SESSION["tudengForEmail"][0]->email))
             ->setBody('Tere '.$_SESSION["tudengForEmail"][0]->eesnimi.'!
 
