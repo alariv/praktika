@@ -1,6 +1,6 @@
 # TUDENGIVARJUVEEB
 
-![N|Solid](https://www.tlu.ee/UserFiles/Turundus-%20ja%20kommunikatsiooniosakond/Logo/TLU-logo-pilt-vrv-suur.jpg)
+
 
 Tudengivarjuveeb on tellitud Tallinna Ülikooli Üliõpilaskonna poolt ja on loodud selleks, et Tallinna Ülikooli Tudengivarjunädala korraldajatel ja osalejatel oleks lihtne teha järgnevaid tegevusi:
 
@@ -39,19 +39,17 @@ _________________________________________________________
 
 Kuna projekt ise on veebipõhine leht, siis kasutuseks ei ole muud vaja kui ühte mitmeist veebibrauseritest. Ise soovitame kasutada Google Chrome kõige uuemat versiooni (hetkel 59.0.3071.86).
 
-Leht asub Tallinna Ülikooli greeny serveris, millesse saab siseneda näiteks läbi sellise tarkvara nagu Putty ja sinna pääsevad ainult kasutajat omavad isikud. Tavakasutaja lehele pääsemiseks tuleb minna localhost:5555/~alariv/praktika/welcome.php. Admini lehele pääsemiks localhost:5555/~alariv/praktika/admin.php, kasutajanimi on "admin" ja parooliks "opelpoleauto".
+Leht asub Tallinna Ülikooli greeny serveris, millesse saab siseneda näiteks läbi sellise tarkvara nagu Putty ja sinna pääsevad ainult kasutajat omavad isikud. Tavakasutaja lehele pääsemiseks tuleb minna localhost:5555/~alarvere/praktika/welcome.php. Admini lehele pääsemiseks localhost:5555/~alarvere/praktika/admin.php, kasutajanimi on "admin" ja parooliks "opelpoleauto".
+
+
 
 Kasutame ka MySQL'i tabeleid, millede valmistamise skriptid on:
 ```
-1) 
-
 CREATE TABLE `admin` (
   `id` int(11) PRIMARY KEY NOT NULL,
   `knimi` varchar(50) NOT NULL,
   `parool` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-2) 
 
 CREATE TABLE `eriala` (
   `id` int(11) PRIMARY KEY NOT NULL,
@@ -59,21 +57,15 @@ CREATE TABLE `eriala` (
   `eriala` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
-3) 
-
 CREATE TABLE `paar` (
   `id` int(11) PRIMARY KEY NOT NULL,
   `pairId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-4)
-
 CREATE TABLE `tervitusTekst` (
   `id` int(11) PRIMARY KEY NOT NULL,
   `tekst` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-5) 
 
 CREATE TABLE `tudengid` (
   `id` int(11) PRIMARY KEY NOT NULL,
@@ -91,8 +83,6 @@ CREATE TABLE `tudengid` (
   `deleted` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-6) 
-
 CREATE TABLE `tudengivarjud` (
   `id` int(11) PRIMARY KEY NOT NULL,
   `eesnimi` varchar(50) NOT NULL,
@@ -108,16 +98,17 @@ CREATE TABLE `tudengivarjud` (
   `deleted` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 ```
-# Config fail
 
 # Litsents
 
 Litsents asub projekti repositooriumi juurkaustas.
 
+# Config fail
+
 ```php
 <?php
 	$serverHost = "xxxxxxxxx";
 	$serverUsername = "xxxx";
-	$serverPassword = "xxxxxxxx";	
+	$serverPassword = "xxxxxxxx";
 	$mailPassword="xxxxxxxxxxxx";
 ?>
