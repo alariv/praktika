@@ -32,7 +32,7 @@ _________________________________________________________
 - CSS3
 - JavaScript
 - MySQL 5.5.54
-- PHP
+- PHP 5.6.29
 - SwiftMailer 6.0.0
 
 # Paigaldusjuhised
