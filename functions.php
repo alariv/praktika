@@ -23,6 +23,7 @@ require("class/helper.class.php");
 $Helper = new Helper($mysqli);
 
 $password=$mailPassword;
+$mail=$mailName;
 
 //alustan sessiooni
 //$_SESSION muutujad
